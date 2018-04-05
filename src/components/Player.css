@@ -1,0 +1,8 @@
+.Player {
+  border: 1px solid #ccc;
+  margin-bottom: 1em;
+}
+
+.Player li {
+  list-style-type: none;
+}

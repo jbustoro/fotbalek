@@ -1,0 +1,8 @@
+.Tournament {
+  border: 1px solid #ccc;
+  margin-bottom: 1em;
+}
+
+.Tournament li {
+  list-style-type: none;
+}
