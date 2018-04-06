@@ -7,6 +7,10 @@ import Players from './Players';
 import Tournaments from './Tournaments';
 import './App.css';
 
+const SHOW_MATCHES = 'SHOW_MATCHES';
+const SHOW_PLAYERS = 'SHOW_PLAYERS';
+const SHOW_TOURNAMENTS = 'SHOW_TOURNAMENTS';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +20,8 @@ class App extends Component {
       players: [],
       snapshots: [],
       teams: [],
-      tournaments: []
+      tournaments: [],
+      currentItem: null
     };
 
     this.matchesRef = firestore.collection('matches');
@@ -31,56 +36,86 @@ class App extends Component {
       this.setState({ currentUser });
 
       // Matches
-      this.matchesRef.get().then(matches => {
-        matches.docs.map(doc => {
-          this.setState({
-            ...this.state,
-            matches: [...this.state.matches, doc.data()]
+      this.matchesRef.onSnapshot(
+        snapshot => {
+          snapshot.docs.map(doc => {
+            this.setState({
+              ...this.state,
+              matches: [...this.state.matches, doc.data()]
+            });
           });
-        });
-      });
+        },
+        err => {
+          console.log(`Encountered error: ${err}`);
+        }
+      );
 
       // Players
-      this.playersRef.get().then(players => {
-        players.docs.map(doc => {
-          this.setState({
-            ...this.state,
-            players: [...this.state.players, doc.data()]
+      this.playersRef.onSnapshot(
+        snapshot => {
+          snapshot.docs.map(doc => {
+            this.setState({
+              ...this.state,
+              players: [...this.state.players, doc.data()]
+            });
           });
-        });
-      });
+        },
+        err => {
+          console.log(`Encountered error: ${err}`);
+        }
+      );
 
+      // Tournaments
+      this.tournamentsRef.onSnapshot(
+        snapshot => {
+          snapshot.docs.map(doc => {
+            this.setState({
+              ...this.state,
+              tournaments: [...this.state.tournaments, doc.data()]
+            });
+          });
+        },
+        err => {
+          console.log(`Encountered error: ${err}`);
+        }
+      );
+      //
       // // Snapshots
-      // this.snapshotsRef.get().then(snapshots => {
-      //   snapshots.docs.map(doc => {
-      //     console.log(doc.data());
-      //     this.setState({
-      //       ...this.state,
-      //       snapshots: [...this.state.snapshots, doc.data()]
+      // this.snapshotsRef.onSnapshot(
+      //   snapshot => {
+      //     snapshot.docs.map(doc => {
+      //       this.setState({
+      //         ...this.state,
+      //         snapshots: [...this.state.snapshots, doc.data()]
+      //       });
       //     });
-      //   });
-      // });
+      //   },
+      //   err => {
+      //     console.log(`Encountered error: ${err}`);
+      //   }
+      // );
       //
       // // Teams
-      // this.teamsRef.get().then(teams => {
-      //   teams.docs.map(doc => {
-      //     console.log(doc.data());
-      //     this.setState({
-      //       ...this.state,
-      //       teams: [...this.state.teams, doc.data()]
+      // this.teamsRef.onSnapshot(
+      //   snapshot => {
+      //     snapshot.docs.map(doc => {
+      //       this.setState({
+      //         ...this.state,
+      //         teams: [...this.state.teams, doc.data()]
+      //       });
       //     });
-      //   });
-      // });
-      //
-      // Tournaments
-      this.tournamentsRef.get().then(tournaments => {
-        tournaments.docs.map(doc => {
-          this.setState({
-            ...this.state,
-            tournaments: [...this.state.tournaments, doc.data()]
-          });
-        });
-      });
+      //   },
+      //   err => {
+      //     console.log(`Encountered error: ${err}`);
+      //   }
+      // );
+    });
+  }
+
+  handleClick(item) {
+    this.setState({
+      ...this.state,
+      currentItem: item
     });
   }
 
@@ -102,11 +137,26 @@ class App extends Component {
         <div>
           {!currentUser && <SignIn />}
           {currentUser && (
-            <div>
+            <div className="container">
               <CurrentUser user={currentUser} />
-              <Matches matches={matches} />
-              <Players players={players} />
-              <Tournaments tournaments={tournaments} />
+              <button onClick={() => this.handleClick(SHOW_MATCHES)}>
+                Matches
+              </button>
+              <button onClick={() => this.handleClick(SHOW_PLAYERS)}>
+                Players
+              </button>
+              <button onClick={() => this.handleClick(SHOW_TOURNAMENTS)}>
+                Tournaments
+              </button>
+              {this.state.currentItem === SHOW_MATCHES && (
+                <Matches matches={matches} />
+              )}
+              {this.state.currentItem === SHOW_PLAYERS && (
+                <Players players={players} />
+              )}
+              {this.state.currentItem === SHOW_TOURNAMENTS && (
+                <Tournaments tournaments={tournaments} />
+              )}
             </div>
           )}
         </div>

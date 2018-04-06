@@ -5,9 +5,10 @@ import './Tournament.css';
 class Tournament extends Component {
   render() {
     const { tournament } = this.props;
-    console.log(tournament);
+
     return (
       <div className="Tournament">
+        <li>{tournament.active && 'Active'}</li>
         <li>{tournament.createdAt}</li>
         <li>{tournament.name}</li>
       </div>
