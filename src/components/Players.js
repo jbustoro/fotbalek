@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Player from './Player';
+import { playersSelector } from '../selectors';
+
+const mapStateToProps = state => ({
+  players: playersSelector(state)
+});
 
 class Players extends Component {
   render() {
@@ -19,4 +25,4 @@ Players.propTypes = {
   players: PropTypes.array
 };
 
-export default Players;
+export default connect(mapStateToProps)(Players);

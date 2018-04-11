@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Match from './Match';
+import { matchesSelector } from '../selectors';
+
+const mapStateToProps = state => ({
+  matches: matchesSelector(state)
+});
 
 class Matches extends Component {
   render() {
@@ -18,4 +24,4 @@ Matches.propTypes = {
   matches: PropTypes.array
 };
 
-export default Matches;
+export default connect(mapStateToProps)(Matches);

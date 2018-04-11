@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Tournament from './Tournament';
+import { tournamentsSelector } from '../selectors';
+
+const mapStateToProps = state => ({
+  tournaments: tournamentsSelector(state)
+});
 
 class Tournaments extends Component {
   render() {
@@ -21,4 +27,4 @@ Tournaments.propTypes = {
   tournaments: PropTypes.array
 };
 
-export default Tournaments;
+export default connect(mapStateToProps)(Tournaments);

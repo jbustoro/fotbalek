@@ -1,162 +1,51 @@
 import React, { Component } from 'react';
-import { auth, firestore } from '../firebase';
-import CurrentUser from './CurrentUser';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import './App.css';
+import FirebaseAuth from './FirebaseAuth';
+import FirebaseData from './FirebaseData';
 import SignIn from './SignIn';
+import CurrentUser from './CurrentUser';
 import Matches from './Matches';
 import Players from './Players';
 import Tournaments from './Tournaments';
-import './App.css';
+import Navbar from './Navbar';
+import {
+  ANONYMOUS,
+  SIGNED_IN,
+  DISPLAY_MATCHES,
+  DISPLAY_PLAYERS,
+  DISPLAY_TOURNAMENTS
+} from '../constants';
+import { authStatusSelector, currentItemSelector } from '../selectors';
 
-const SHOW_MATCHES = 'SHOW_MATCHES';
-const SHOW_PLAYERS = 'SHOW_PLAYERS';
-const SHOW_TOURNAMENTS = 'SHOW_TOURNAMENTS';
+const mapStateToProps = state => ({
+  authStatus: authStatusSelector(state),
+  currentItem: currentItemSelector(state)
+});
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentUser: null,
-      matches: [],
-      players: [],
-      snapshots: [],
-      teams: [],
-      tournaments: [],
-      currentItem: null
-    };
-
-    this.matchesRef = firestore.collection('matches');
-    this.playersRef = firestore.collection('players');
-    this.snapshotsRef = firestore.collection('snapshots');
-    this.teamsRef = firestore.collection('teams');
-    this.tournamentsRef = firestore.collection('tournaments');
-  }
-
-  componentDidMount() {
-    auth.onAuthStateChanged(currentUser => {
-      this.setState({ currentUser });
-
-      // Matches
-      this.matchesRef.onSnapshot(
-        snapshot => {
-          snapshot.docs.map(doc => {
-            this.setState({
-              ...this.state,
-              matches: [...this.state.matches, doc.data()]
-            });
-          });
-        },
-        err => {
-          console.log(`Encountered error: ${err}`);
-        }
-      );
-
-      // Players
-      this.playersRef.onSnapshot(
-        snapshot => {
-          snapshot.docs.map(doc => {
-            this.setState({
-              ...this.state,
-              players: [...this.state.players, doc.data()]
-            });
-          });
-        },
-        err => {
-          console.log(`Encountered error: ${err}`);
-        }
-      );
-
-      // Tournaments
-      this.tournamentsRef.onSnapshot(
-        snapshot => {
-          snapshot.docs.map(doc => {
-            this.setState({
-              ...this.state,
-              tournaments: [...this.state.tournaments, doc.data()]
-            });
-          });
-        },
-        err => {
-          console.log(`Encountered error: ${err}`);
-        }
-      );
-      //
-      // // Snapshots
-      // this.snapshotsRef.onSnapshot(
-      //   snapshot => {
-      //     snapshot.docs.map(doc => {
-      //       this.setState({
-      //         ...this.state,
-      //         snapshots: [...this.state.snapshots, doc.data()]
-      //       });
-      //     });
-      //   },
-      //   err => {
-      //     console.log(`Encountered error: ${err}`);
-      //   }
-      // );
-      //
-      // // Teams
-      // this.teamsRef.onSnapshot(
-      //   snapshot => {
-      //     snapshot.docs.map(doc => {
-      //       this.setState({
-      //         ...this.state,
-      //         teams: [...this.state.teams, doc.data()]
-      //       });
-      //     });
-      //   },
-      //   err => {
-      //     console.log(`Encountered error: ${err}`);
-      //   }
-      // );
-    });
-  }
-
-  handleClick(item) {
-    this.setState({
-      ...this.state,
-      currentItem: item
-    });
-  }
-
   render() {
-    const {
-      currentUser,
-      matches,
-      players,
-      snapshots,
-      teams,
-      tournaments
-    } = this.state;
+    const { authStatus, currentItem } = this.props;
 
     return (
       <div className="App">
+        <FirebaseAuth />
         <header>
           <h1>Fotbalek</h1>
         </header>
         <div>
-          {!currentUser && <SignIn />}
-          {currentUser && (
+          {authStatus === ANONYMOUS && <SignIn />}
+          {authStatus === SIGNED_IN && (
             <div className="container">
-              <CurrentUser user={currentUser} />
-              <button onClick={() => this.handleClick(SHOW_MATCHES)}>
-                Matches
-              </button>
-              <button onClick={() => this.handleClick(SHOW_PLAYERS)}>
-                Players
-              </button>
-              <button onClick={() => this.handleClick(SHOW_TOURNAMENTS)}>
-                Tournaments
-              </button>
-              {this.state.currentItem === SHOW_MATCHES && (
-                <Matches matches={matches} />
-              )}
-              {this.state.currentItem === SHOW_PLAYERS && (
-                <Players players={players} />
-              )}
-              {this.state.currentItem === SHOW_TOURNAMENTS && (
-                <Tournaments tournaments={tournaments} />
-              )}
+              <FirebaseData />
+              <CurrentUser />
+              <Navbar />
+              <div className="Data-container">
+                {currentItem === DISPLAY_MATCHES && <Matches />}
+                {currentItem === DISPLAY_PLAYERS && <Players />}
+                {currentItem === DISPLAY_TOURNAMENTS && <Tournaments />}
+              </div>
             </div>
           )}
         </div>
@@ -165,4 +54,9 @@ class App extends Component {
   }
 }
 
-export default App;
+App.propTypes = {
+  authStatus: PropTypes.string,
+  currentItem: PropTypes.string
+};
+
+export default connect(mapStateToProps)(App);

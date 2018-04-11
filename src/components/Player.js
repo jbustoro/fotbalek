@@ -5,31 +5,19 @@ import './Player.css';
 class Player extends Component {
   render() {
     const { player } = this.props;
-    const {
-      deviceToken,
-      goalsAgainst,
-      goalsFor,
-      loses,
-      name,
-      order,
-      rating,
-      sigma,
-      tsRating,
-      wins
-    } = player;
 
     return (
       <div className="Player">
-        <li>{`Device token: ${deviceToken}`}</li>
-        <li>{`Goals against: ${goalsAgainst}`}</li>
-        <li>{`Goals for: ${goalsFor}`}</li>
-        <li>{`Loses: ${loses}`}</li>
-        <li>{`Name: ${name}`}</li>
-        <li>{`Order: ${order}`}</li>
-        <li>{`Rating: ${rating}`}</li>
-        <li>{`Sigma: ${sigma}`}</li>
-        <li>{`Ts Rating: ${tsRating}`}</li>
-        <li>{`Wins: ${wins}`}</li>
+        <li>{`Device token: ${player.deviceToken}`}</li>
+        <li>{`Goals against: ${player.goalsAgainst}`}</li>
+        <li>{`Goals for: ${player.goalsFor}`}</li>
+        <li>{`Loses: ${player.loses}`}</li>
+        <li>{`Name: ${player.name}`}</li>
+        <li>{`Order: ${player.order}`}</li>
+        <li>{`Rating: ${player.rating}`}</li>
+        <li>{`Sigma: ${player.sigma}`}</li>
+        <li>{`Ts Rating: ${player.tsRating}`}</li>
+        <li>{`Wins: ${player.wins}`}</li>
       </div>
     );
   }
