@@ -7,18 +7,13 @@ class Player extends Component {
     const { player } = this.props;
 
     return (
-      <div className="Player">
-        <li>{`Device token: ${player.deviceToken}`}</li>
-        <li>{`Goals against: ${player.goalsAgainst}`}</li>
-        <li>{`Goals for: ${player.goalsFor}`}</li>
-        <li>{`Loses: ${player.loses}`}</li>
-        <li>{`Name: ${player.name}`}</li>
-        <li>{`Order: ${player.order}`}</li>
-        <li>{`Rating: ${player.rating}`}</li>
-        <li>{`Sigma: ${player.sigma}`}</li>
-        <li>{`Ts Rating: ${player.tsRating}`}</li>
-        <li>{`Wins: ${player.wins}`}</li>
-      </div>
+      <tr>
+        <td>{player.order}</td>
+        <td>{player.name}</td>
+        <td>{player.rating.toFixed(2)}</td>
+        <td>{`${player.wins}:${player.loses}`}</td>
+        <td>{(player.goalsFor / player.goalsAgainst).toFixed(2)}</td>
+      </tr>
     );
   }
 }
