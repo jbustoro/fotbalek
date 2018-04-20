@@ -1,0 +1,12 @@
+.Matches-title {
+  margin: 1em;
+}
+
+.Add-Match {
+  height: 5em;
+  width: 5em;
+  left: 75%;
+  top: 85%;
+  border-radius: 100%;
+  position: fixed;
+}

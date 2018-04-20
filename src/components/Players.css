@@ -1,0 +1,14 @@
+.Players-title {
+  margin: 1em;
+}
+
+.Players-table {
+  margin: 1em;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.Players-table td,
+.Players-table th {
+  border: 1px solid black;
+}
