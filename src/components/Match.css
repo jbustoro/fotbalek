@@ -1,4 +1,37 @@
 .Match {
-  border: 1px solid #ccc;
-  margin-bottom: 1em;
+  width: 100%;
+  margin-top: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid black;
+}
+
+.Match-date {
+  margin: 1em;
+  flex-basis: 100%;
+}
+
+.Match-team {
+  margin: 1em;
+  flex-grow: 1;
+}
+
+.Match-player {
+  width: 15em;
+}
+
+.Match-team:last-of-type {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.Match-result {
+  margin-top: 3em;
+}
+
+.Match-tournament {
+  margin: 1em;
+  flex-basis: 100%;
 }
