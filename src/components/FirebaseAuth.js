@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { auth } from '../firebase';
-import { signedIn, signedOut } from '../actions/auth';
+import { signedIn } from '../actions/auth';
 
 const mapDispatchToProps = {
-  signedIn,
-  signedOut
+  signedIn
 };
 
 let unsubscribe = null;
@@ -16,8 +15,6 @@ class FirebaseAuth extends Component {
     unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
         this.props.signedIn(user);
-      } else {
-        this.props.signedOut();
       }
     });
   }
@@ -32,8 +29,7 @@ class FirebaseAuth extends Component {
 }
 
 FirebaseAuth.propTypes = {
-  signedIn: PropTypes.func,
-  signedOut: PropTypes.func
+  signedIn: PropTypes.func
 };
 
 export default connect(null, mapDispatchToProps)(FirebaseAuth);
