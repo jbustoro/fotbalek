@@ -1,34 +1,58 @@
 import React, { Component } from 'react';
+import dateformat from 'dateformat';
 import PropTypes from 'prop-types';
 import './Match.css';
 
 class Match extends Component {
   render() {
-    const { match } = this.props;
-    const [resultA, resultB] = match.result;
-    const { 0: teamA, 1: teamB } = match.teams;
-    const { 0: playerA0, 1: playerA1 } = teamA;
-    const { 0: playerB0, 1: playerB1 } = teamB;
+    const {
+      playedAt,
+      result: [resultA, resultB],
+      playerA0,
+      playerA1,
+      playerB0,
+      playerB1,
+      tournamentId
+    } = this.props;
 
     return (
       <div className="Match">
-        <h4 className="Match--date">{`Played at ${match.playedAt}`}</h4>
-        <p className="Match--team">
-          <span>TEAM A </span>
-          {`Player ${playerA0} & Player ${playerA1}`}
-        </p>
-        <h3 className="Match--result">{`${resultA} - ${resultB}`}</h3>
-        <p className="Match--team">
-          <span>TEAM B </span>
-          {`Player ${playerB0} & Player ${playerB1}`}
-        </p>
+        <div className="Match-date">
+          <p>{dateformat(playedAt, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</p>
+        </div>
+        <div className="Match-team">
+          <p className="Match-player">
+            {`${playerA0 ? playerA0.name : 'undefined'}`}
+          </p>
+          <p className="Match-player">
+            {`${playerA1 ? playerA1.name : 'undefined'} `}
+          </p>
+        </div>
+        <p className="Match-result">{`${resultA} - ${resultB}`}</p>
+        <div className="Match-team">
+          <p className="Match-player">
+            {`${playerB0 ? playerB0.name : 'undefined'}`}
+          </p>
+          <p className="Match-player">
+            {`${playerB1 ? playerB1.name : 'undefined'}`}
+          </p>
+        </div>
+        {tournamentId && (
+          <p className="Match-tournament">{`Tournament ID: ${tournamentId}`}</p>
+        )}
       </div>
     );
   }
 }
 
 Match.propTypes = {
-  match: PropTypes.object
+  playedAt: PropTypes.string,
+  result: PropTypes.array,
+  playerA0: PropTypes.object,
+  playerA1: PropTypes.object,
+  playerB0: PropTypes.object,
+  playerB1: PropTypes.object,
+  tournamentId: PropTypes.string
 };
 
 export default Match;
