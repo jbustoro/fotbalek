@@ -32,7 +32,7 @@ class App extends Component {
       <div className="App">
         <FirebaseAuth />
         <header>
-          <h1>Fotbalek</h1>
+          <h1 className="App-title">Fotbalek</h1>
         </header>
         <div>
           {authStatus === ANONYMOUS && <SignIn />}
