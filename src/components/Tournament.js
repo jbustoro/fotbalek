@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import dateformat from 'dateformat';
 import PropTypes from 'prop-types';
 import './Tournament.css';
 
@@ -8,9 +9,10 @@ class Tournament extends Component {
 
     return (
       <div className="Tournament">
-        <li>{tournament.active && 'Active'}</li>
-        <li>{tournament.createdAt}</li>
-        <li>{tournament.name}</li>
+        <p className="Tournament-date">
+          {dateformat(tournament.createdAt, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}
+        </p>
+        <p className="Tournament-active">{tournament.active && 'Active'}</p>
       </div>
     );
   }
