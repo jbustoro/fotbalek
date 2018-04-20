@@ -23,7 +23,6 @@ const mapDispatchToProps = {
 class Matches extends Component {
   render() {
     const { matches, players } = this.props;
-    console.log(players);
 
     return _.isEmpty(matches) ? (
       <Loading />
@@ -46,10 +45,10 @@ class Matches extends Component {
               key={key}
               playedAt={playedAt}
               result={result}
-              playerA0={players[playerA0]}
-              playerA1={players[playerA1]}
-              playerB0={players[playerB0]}
-              playerB1={players[playerB1]}
+              playerA0={players.get(playerA0)}
+              playerA1={players.get(playerA1)}
+              playerB0={players.get(playerB0)}
+              playerB1={players.get(playerB1)}
               tournamentId={tournamentId}
             />
           );
