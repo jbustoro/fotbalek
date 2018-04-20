@@ -3,26 +3,38 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { auth } from '../firebase';
 import { currentUserSelector } from '../selectors';
+import { signedOut } from '../actions/auth';
 import './CurrentUser.css';
 
 const mapStateToProps = state => ({
   currentUser: currentUserSelector(state)
 });
 
+const mapDispatchToProps = {
+  signedOut
+};
+
 class CurrentUser extends Component {
+  handleClick() {
+    auth.signOut();
+    this.props.signedOut();
+  }
+
   render() {
     const { currentUser } = this.props;
+    const { providerData: [{ photoURL }] } = currentUser;
+
     return (
       <div className="CurrentUser">
         <img
           className="CurrentUser--photo"
-          src={currentUser.photoURL}
+          src={photoURL}
           alt={currentUser.displayName}
         />
         <div className="CurrentUser--identification">
           <h3>{currentUser.displayName}</h3>
-          <p>{currentUser.email}</p>
-          <button onClick={() => auth.signOut()}>Sign Out</button>
+          <p>{currentUser.uid}</p>
+          <button onClick={() => this.handleClick()}>Sign Out</button>
         </div>
       </div>
     );
@@ -30,6 +42,7 @@ class CurrentUser extends Component {
 }
 
 CurrentUser.propTypes = {
+  signedOut: PropTypes.func,
   currentUser: PropTypes.shape({
     displayName: PropTypes.string,
     email: PropTypes.string.isRequired,
@@ -38,4 +51,4 @@ CurrentUser.propTypes = {
   })
 };
 
-export default connect(mapStateToProps)(CurrentUser);
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentUser);
