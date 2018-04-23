@@ -1,4 +1,5 @@
 import { Record, Map } from 'immutable';
+import dateFormat from 'dateformat';
 import {
   ANONYMOUS,
   ATTEMPTING_LOGIN,
@@ -12,14 +13,17 @@ import {
   DISPLAY_TOURNAMENTS,
   OPEN_MODAL,
   CLOSE_MODAL,
+  SETTING_NEW_MATCH,
   SET_NEW_MATCH_TEAM_A_PLAYER_0,
   SET_NEW_MATCH_TEAM_A_PLAYER_1,
   SET_NEW_MATCH_TEAM_B_PLAYER_0,
   SET_NEW_MATCH_TEAM_B_PLAYER_1,
   SET_NEW_MATCH_TEAM_A_SCORE,
   SET_NEW_MATCH_TEAM_B_SCORE,
-  SET_NEW_MATCH_TOURNAMENT
+  SET_NEW_MATCH_TOURNAMENT,
+  SAVE_NEW_MATCH
 } from '../constants';
+import { firestore } from '../firebase';
 
 const initialState = Record({
   authStatus: ANONYMOUS,
@@ -32,8 +36,8 @@ const initialState = Record({
   newMatch: {
     playedAt: '',
     result: {
-      scoreA: 10,
-      scoreB: 0
+      scoreA: '',
+      scoreB: ''
     },
     teams: {
       teamA: {
@@ -77,6 +81,13 @@ const rootReducer = (state = defaultState, action) => {
       return state.set('modalOpen', true);
     case CLOSE_MODAL:
       return state.set('modalOpen', false);
+    case SETTING_NEW_MATCH: {
+      const newMatch = {
+        ...state.newMatch,
+        playedAt: dateFormat(new Date(), 'isoDateTime')
+      };
+      return state.set('newMatch', newMatch);
+    }
     case SET_NEW_MATCH_TEAM_A_PLAYER_0: {
       const newMatch = {
         ...state.newMatch,
@@ -153,9 +164,13 @@ const rootReducer = (state = defaultState, action) => {
       };
       return state.set('newMatch', newMatch);
     }
+    case SAVE_NEW_MATCH: {
+      return firestore.collection('matches').add(state.newMatch);
+    }
     default:
       return state;
   }
 };
 
+// TODO Separate into diferent files, use combinedReducers
 export default rootReducer;

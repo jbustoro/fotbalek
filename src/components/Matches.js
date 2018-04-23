@@ -6,6 +6,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
 import { matchesSelector, playersSelector } from '../selectors';
 import { openModal } from '../actions';
+import { settingNewMatch } from '../actions/newMatch';
 import Match from './Match';
 import Loading from './Loading';
 import NewMatch from './NewMatch';
@@ -17,10 +18,15 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  openModal
+  openModal,
+  settingNewMatch
 };
 
 class Matches extends Component {
+  handleClick() {
+    this.props.openModal();
+    this.props.settingNewMatch();
+  }
   render() {
     const { matches, players } = this.props;
 
@@ -53,7 +59,7 @@ class Matches extends Component {
             />
           );
         })}
-        <button className="Add-Match" onClick={() => this.props.openModal()}>
+        <button className="Add-Match" onClick={() => this.handleClick()}>
           <FontAwesomeIcon icon={faPlus} />
         </button>
         <NewMatch />
@@ -65,7 +71,8 @@ class Matches extends Component {
 Matches.propTypes = {
   matches: PropTypes.object,
   players: PropTypes.object,
-  openModal: PropTypes.func
+  openModal: PropTypes.func,
+  settingNewMatch: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Matches);

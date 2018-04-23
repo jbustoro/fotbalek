@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import dateformat from 'dateformat';
+import dateFormat from 'dateformat';
 import PropTypes from 'prop-types';
 import { tournamentsSelector } from '../selectors';
 
@@ -17,8 +17,8 @@ class SelectTournament extends Component {
       <select onChange={onChange}>
         <option>Select a tournament</option>
         {_.map(tournaments, (tournament, key) => (
-          <option key={key}>
-            {dateformat(
+          <option key={key} value={key}>
+            {dateFormat(
               tournament.createdAt,
               'dddd, mmmm dS, yyyy, h:MM:ss TT'
             )}

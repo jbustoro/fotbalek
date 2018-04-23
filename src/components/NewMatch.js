@@ -13,7 +13,8 @@ import {
   setNewMatchTeamBPlayer1,
   setNewMatchTeamAScore,
   setNewMatchTeamBScore,
-  setNewMatchTournament
+  setNewMatchTournament,
+  saveNewMatch
 } from '../actions/newMatch';
 import './NewMatch.css';
 
@@ -30,13 +31,14 @@ const mapDispatchToProps = {
   setNewMatchTeamBPlayer1,
   setNewMatchTeamAScore,
   setNewMatchTeamBScore,
-  setNewMatchTournament
+  setNewMatchTournament,
+  saveNewMatch
 };
 
 class NewMatch extends Component {
   handleSubmit(event) {
     event.preventDefault();
-    //const data = new FormData(event.target);
+    this.props.saveNewMatch();
   }
 
   render() {
@@ -46,14 +48,14 @@ class NewMatch extends Component {
         onClose={() => this.props.closeModal()}
         little
       >
-        <form onClick={event => this.handleSubmit(event)}>
+        <form onSubmit={event => this.handleSubmit(event)}>
           <div className="New-match-players">
             <h2>Players</h2>
             <h3>Team 1</h3>
             <SelectPlayer
-              onChange={event =>
-                this.props.setNewMatchTeamAPlayer0(event.target.value)
-              }
+              onChange={event => {
+                this.props.setNewMatchTeamAPlayer0(event.target.value);
+              }}
             />
             <SelectPlayer
               onChange={event =>
@@ -123,7 +125,8 @@ NewMatch.propTypes = {
   setNewMatchTeamBPlayer1: PropTypes.func,
   setNewMatchTeamAScore: PropTypes.func,
   setNewMatchTeamBScore: PropTypes.func,
-  setNewMatchTournament: PropTypes.func
+  setNewMatchTournament: PropTypes.func,
+  saveNewMatch: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewMatch);

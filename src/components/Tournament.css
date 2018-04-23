@@ -5,6 +5,10 @@
   border: 1px solid black;
 }
 
+.Tournament:hover {
+  background-color: rgb(160, 146, 185);
+}
+
 .Tournament-date {
   margin: 1em;
   flex-grow: 1;

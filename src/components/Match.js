@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import dateformat from 'dateformat';
+import dateFormat from 'dateformat';
 import PropTypes from 'prop-types';
 import './Match.css';
 
@@ -18,7 +18,7 @@ class Match extends Component {
     return (
       <div className="Match">
         <div className="Match-date">
-          <p>{dateformat(playedAt, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</p>
+          <p>{dateFormat(playedAt, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</p>
         </div>
         <div className="Match-team">
           <p className="Match-player">

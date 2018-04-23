@@ -14,9 +14,15 @@ class SelectPlayer extends Component {
     return (
       <select onChange={onChange}>
         <option>Select a player</option>
-        {players
-          .valueSeq()
-          .map((player, key) => <option key={key}>{player.name}</option>)}
+        {players.entrySeq().map((playerData, key) => {
+          const [playerId, player] = playerData;
+
+          return (
+            <option key={key} value={playerId}>
+              {player.name}
+            </option>
+          );
+        })}
       </select>
     );
   }
