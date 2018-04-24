@@ -183,9 +183,6 @@
         "after": true
       }
     ],
-    "generator-star-spacing": [
-      "warn"
-    ],
     "constructor-super": [
       "error"
     ],

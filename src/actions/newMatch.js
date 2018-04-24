@@ -65,8 +65,9 @@ export function setNewMatchTournament(payload) {
   };
 }
 
-export function saveNewMatch() {
+export function saveNewMatch(payload) {
   return {
-    type: SAVE_NEW_MATCH
+    type: SAVE_NEW_MATCH,
+    payload
   };
 }

@@ -22,6 +22,10 @@ const matches = {};
 const players = {};
 const tournaments = {};
 
+export const saveDataIntoFirestore = data => {
+  firestore.collection('matches').add(data);
+};
+
 class FirebaseData extends Component {
   componentDidMount() {
     matchesRef.onSnapshot(

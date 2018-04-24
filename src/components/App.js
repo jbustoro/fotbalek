@@ -33,9 +33,9 @@ class App extends Component {
         <FirebaseAuth />
         <header>
           <h1 className="App-title">Fotbalek</h1>
+          {authStatus === ANONYMOUS && <SignIn />}
         </header>
         <div>
-          {authStatus === ANONYMOUS && <SignIn />}
           {authStatus === SIGNED_IN && (
             <div className="container">
               <FirebaseData />

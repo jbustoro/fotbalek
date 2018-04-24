@@ -38,7 +38,7 @@ const mapDispatchToProps = {
 class NewMatch extends Component {
   handleSubmit(event) {
     event.preventDefault();
-    this.props.saveNewMatch();
+    this.props.saveNewMatch(this.props.newMatch);
   }
 
   render() {
@@ -102,9 +102,15 @@ class NewMatch extends Component {
               }
             />
           </div>
-          <button type="submit">Save</button>
           <button
-            className="destructive"
+            className="NewMatch-save"
+            type="submit"
+            onClick={() => this.props.closeModal()}
+          >
+            Save
+          </button>
+          <button
+            className="NewMatch-cancel"
             onClick={() => this.props.closeModal()}
           >
             Cancel

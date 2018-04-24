@@ -20,10 +20,12 @@ import {
   SET_NEW_MATCH_TEAM_B_PLAYER_1,
   SET_NEW_MATCH_TEAM_A_SCORE,
   SET_NEW_MATCH_TEAM_B_SCORE,
-  SET_NEW_MATCH_TOURNAMENT,
-  SAVE_NEW_MATCH
+  SET_NEW_MATCH_TOURNAMENT
 } from '../constants';
-import { firestore } from '../firebase';
+
+// TODO use a common key for teamA and teamB (score, players...), change the set new match to only one action and change only the given data in the state
+// export const teamA = 'teamA';
+// export const teamB = 'teamB';
 
 const initialState = Record({
   authStatus: ANONYMOUS,
@@ -163,9 +165,6 @@ const rootReducer = (state = defaultState, action) => {
         tournamentId: action.payload
       };
       return state.set('newMatch', newMatch);
-    }
-    case SAVE_NEW_MATCH: {
-      return firestore.collection('matches').add(state.newMatch);
     }
     default:
       return state;

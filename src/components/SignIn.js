@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { auth, googleAuthProvider } from '../firebase';
 import { attemptingLogin } from '../actions/auth';
+import './SignIn.css';
 
 const mapDispatchToProps = {
   attemptingLogin
@@ -17,7 +18,9 @@ class SignIn extends Component {
   render() {
     return (
       <div className="SignIn">
-        <button onClick={() => this.handleClick()}>Sign In</button>
+        <button className="SignIn-btn" onClick={() => this.handleClick()}>
+          Sign In
+        </button>
       </div>
     );
   }

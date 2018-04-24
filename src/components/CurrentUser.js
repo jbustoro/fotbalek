@@ -33,7 +33,7 @@ class CurrentUser extends Component {
         />
         <div className="CurrentUser--identification">
           <h3>{currentUser.displayName}</h3>
-          <p>{currentUser.uid}</p>
+          <p>{currentUser.email}</p>
           <button onClick={() => this.handleClick()}>Sign Out</button>
         </div>
       </div>

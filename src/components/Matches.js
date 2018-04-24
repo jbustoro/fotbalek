@@ -31,7 +31,13 @@ class Matches extends Component {
     const { matches, players } = this.props;
 
     return _.isEmpty(matches) ? (
-      <Loading />
+      <div>
+        <Loading />
+        <button className="Add-Match" onClick={() => this.handleClick()}>
+          <FontAwesomeIcon icon={faPlus} />
+        </button>
+        <NewMatch />
+      </div>
     ) : (
       <div className="Matches">
         <h3 className="Matches-title">Matches</h3>
