@@ -13,14 +13,7 @@ import {
   DISPLAY_TOURNAMENTS,
   OPEN_MODAL,
   CLOSE_MODAL,
-  SETTING_NEW_MATCH,
-  SET_NEW_MATCH_TEAM_A_PLAYER_0,
-  SET_NEW_MATCH_TEAM_A_PLAYER_1,
-  SET_NEW_MATCH_TEAM_B_PLAYER_0,
-  SET_NEW_MATCH_TEAM_B_PLAYER_1,
-  SET_NEW_MATCH_TEAM_A_SCORE,
-  SET_NEW_MATCH_TEAM_B_SCORE,
-  SET_NEW_MATCH_TOURNAMENT
+  SET_NEW_MATCH
 } from '../constants';
 
 // TODO use a common key for teamA and teamB (score, players...), change the set new match to only one action and change only the given data in the state
@@ -83,87 +76,50 @@ const rootReducer = (state = defaultState, action) => {
       return state.set('modalOpen', true);
     case CLOSE_MODAL:
       return state.set('modalOpen', false);
-    case SETTING_NEW_MATCH: {
-      const newMatch = {
-        ...state.newMatch,
-        playedAt: dateFormat(new Date(), 'isoDateTime')
-      };
-      return state.set('newMatch', newMatch);
-    }
-    case SET_NEW_MATCH_TEAM_A_PLAYER_0: {
-      const newMatch = {
-        ...state.newMatch,
-        teams: {
-          ...state.newMatch.teams,
-          teamA: {
-            ...state.newMatch.teams.teamA,
-            playerA0: action.payload
-          }
+    case SET_NEW_MATCH: {
+      let playerA0, playerA1, playerB0, playerB1, scoreA, scoreB, tournamentId;
+
+      if (action.PLAYER_0) {
+        if (action.TEAM_A) {
+          playerA0 = action.payload;
+        } else if (action.TEAM_B) {
+          playerB0 = action.payload;
         }
-      };
-      return state.set('newMatch', newMatch);
-    }
-    case SET_NEW_MATCH_TEAM_A_PLAYER_1: {
-      const newMatch = {
-        ...state.newMatch,
-        teams: {
-          ...state.newMatch.teams,
-          teamA: {
-            ...state.newMatch.teams.teamA,
-            playerA1: action.payload
-          }
+      } else if (action.PLAYER_1) {
+        if (action.TEAM_A) {
+          playerA1 = action.payload;
+        } else if (action.TEAM_B) {
+          playerB1 = action.payload;
         }
-      };
-      return state.set('newMatch', newMatch);
-    }
-    case SET_NEW_MATCH_TEAM_B_PLAYER_0: {
-      const newMatch = {
-        ...state.newMatch,
-        teams: {
-          ...state.newMatch.teams,
-          teamB: {
-            ...state.newMatch.teams.teamB,
-            playerB0: action.payload
-          }
+      } else if (action.SCORE) {
+        if (action.TEAM_A) {
+          scoreA = action.payload;
+        } else if (action.TEAM_B) {
+          scoreB = action.payload;
         }
-      };
-      return state.set('newMatch', newMatch);
-    }
-    case SET_NEW_MATCH_TEAM_B_PLAYER_1: {
+      } else if (action.TOURNAMENT) {
+        tournamentId = action.payload;
+      }
+
       const newMatch = {
-        ...state.newMatch,
-        teams: {
-          ...state.newMatch.teams,
-          teamB: {
-            ...state.newMatch.teams.teamB,
-            playerB1: action.payload
-          }
-        }
-      };
-      return state.set('newMatch', newMatch);
-    }
-    case SET_NEW_MATCH_TEAM_A_SCORE: {
-      const newMatch = {
-        ...state.newMatch,
+        playedAt: dateFormat(new Date(), 'isoDateTime'),
         result: {
-          ...state.newMatch.result,
-          scoreA: action.payload
-        }
+          scoreA: scoreA ? scoreA : state.newMatch.result.scoreA,
+          scoreB: scoreB ? scoreB : state.newMatch.result.scoreB
+        },
+        teams: {
+          teamA: {
+            playerA0: playerA0 ? playerA0 : state.newMatch.teams.teamA.playerA0,
+            playerA1: playerA1 ? playerA1 : state.newMatch.teams.teamA.playerA1
+          },
+          teamB: {
+            playerB0: playerB0 ? playerB0 : state.newMatch.teams.teamB.playerB0,
+            playerB1: playerB1 ? playerB1 : state.newMatch.teams.teamB.playerB1
+          }
+        },
+        tournamentId: tournamentId ? tournamentId : state.newMatch.tournamentId
       };
-      return state.set('newMatch', newMatch);
-    }
-    case SET_NEW_MATCH_TEAM_B_SCORE: {
-      const newMatch = {
-        ...state.newMatch,
-        result: { ...state.newMatch.result, scoreB: action.payload }
-      };
-      return state.set('newMatch', newMatch);
-    }
-    case SET_NEW_MATCH_TOURNAMENT: {
-      const newMatch = {
-        ...state.newMatch,
-        tournamentId: action.payload
-      };
+
       return state.set('newMatch', newMatch);
     }
     default:
