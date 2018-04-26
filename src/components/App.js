@@ -9,7 +9,7 @@ import CurrentUser from './CurrentUser';
 import Matches from './Matches';
 import Players from './Players';
 import Tournaments from './Tournaments';
-import Navbar from './Navbar';
+import NavigationBar from './NavigationBar';
 import {
   ANONYMOUS,
   SIGNED_IN,
@@ -37,10 +37,10 @@ class App extends Component {
         </header>
         <div>
           {authStatus === SIGNED_IN && (
-            <div className="container">
+            <div>
               <FirebaseData />
               <CurrentUser />
-              <Navbar />
+              <NavigationBar />
               <div className="Data-container">
                 {currentItem === DISPLAY_MATCHES && <Matches />}
                 {currentItem === DISPLAY_PLAYERS && <Players />}
