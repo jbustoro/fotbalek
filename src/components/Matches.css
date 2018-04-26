@@ -3,10 +3,12 @@
 }
 
 .Add-Match {
-  height: 5em;
-  width: 5em;
+  height: 4em;
+  width: 4em;
   left: 75%;
   top: 85%;
   border-radius: 100%;
   position: fixed;
+  background-color: orange;
+  color: white;
 }

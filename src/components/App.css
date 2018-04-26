@@ -1,4 +1,21 @@
-.App {
-  margin: auto;
-  width: 800px;
+html,
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: orange;
+  height: 13em;
+  width: 100%;
+  padding-top: 3em;
+}
+
+.App-title {
+  font-size: 4em;
+  color: white;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 0.5em;
 }

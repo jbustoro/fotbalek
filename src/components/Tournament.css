@@ -2,11 +2,11 @@
   margin-bottom: 1em;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid black;
+  border: 1px solid #ccc;
 }
 
 .Tournament:hover {
-  background-color: rgb(160, 146, 185);
+  background-color: lightgrey;
 }
 
 .Tournament-date {
