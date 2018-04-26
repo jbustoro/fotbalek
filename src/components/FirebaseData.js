@@ -22,7 +22,7 @@ const matches = {};
 const players = {};
 const tournaments = {};
 
-export const saveDataIntoFirestore = data => {
+export const saveNewMatchIntoFirestore = data => {
   firestore.collection('matches').add(data);
 };
 
