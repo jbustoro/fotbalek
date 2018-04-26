@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { auth, googleAuthProvider } from '../firebase';
 import { attemptingLogin } from '../actions/auth';
@@ -18,9 +19,9 @@ class SignIn extends Component {
   render() {
     return (
       <div className="SignIn">
-        <button className="SignIn-btn" onClick={() => this.handleClick()}>
+        <Button bsStyle="success" onClick={() => this.handleClick()}>
           Sign In
-        </button>
+        </Button>
       </div>
     );
   }

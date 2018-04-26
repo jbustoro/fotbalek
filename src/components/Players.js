@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { Table } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Player from './Player';
 import { playersSelector } from '../selectors';
@@ -21,7 +22,7 @@ class Players extends Component {
     ) : (
       <div className="Players">
         <h3 className="Players-title">Players</h3>
-        <table className="Players-table">
+        <Table striped bordered condensed hover>
           <thead>
             <tr>
               <th>#</th>
@@ -36,7 +37,7 @@ class Players extends Component {
               .valueSeq()
               .map((player, key) => <Player key={key} player={player} />)}
           </tbody>
-        </table>
+        </Table>
       </div>
     );
   }

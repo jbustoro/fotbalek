@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import dateFormat from 'dateformat';
+import { FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { tournamentsSelector } from '../selectors';
 
@@ -14,7 +15,7 @@ class SelectTournament extends Component {
     const { tournaments, onChange } = this.props;
 
     return (
-      <select onChange={onChange}>
+      <FormControl componentClass="select" onChange={onChange}>
         <option>Select a tournament</option>
         {_.map(tournaments, (tournament, key) => (
           <option key={key} value={key}>
@@ -24,7 +25,7 @@ class SelectTournament extends Component {
             )}
           </option>
         ))}
-      </select>
+      </FormControl>
     );
   }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { auth } from '../firebase';
 import { currentUserSelector } from '../selectors';
@@ -34,7 +35,7 @@ class CurrentUser extends Component {
         <div className="CurrentUser--identification">
           <h3>{currentUser.displayName}</h3>
           <p>{currentUser.email}</p>
-          <button onClick={() => this.handleClick()}>Sign Out</button>
+          <Button onClick={() => this.handleClick()}>Sign Out</Button>
         </div>
       </div>
     );

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { playersSelector } from '../selectors';
 
@@ -12,8 +13,8 @@ class SelectPlayer extends Component {
     const { players, onChange } = this.props;
 
     return (
-      <select onChange={onChange}>
-        <option>Select a player</option>
+      <FormControl componentClass="select" onChange={onChange}>
+        <option>Select Player</option>
         {players.entrySeq().map((playerData, key) => {
           const [playerId, player] = playerData;
 
@@ -23,7 +24,7 @@ class SelectPlayer extends Component {
             </option>
           );
         })}
-      </select>
+      </FormControl>
     );
   }
 }
