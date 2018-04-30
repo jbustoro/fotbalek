@@ -2,11 +2,15 @@ import {
   LOAD_MATCHES_DATA,
   LOAD_PLAYERS_DATA,
   LOAD_TOURNAMENTS_DATA,
+  LOAD_TEAMS_DATA,
   DISPLAY_MATCHES,
   DISPLAY_PLAYERS,
   DISPLAY_TOURNAMENTS,
   OPEN_MODAL,
-  CLOSE_MODAL
+  CLOSE_MODAL,
+  SET_CURRENT_TOURNAMENT,
+  DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD,
+  DISPLAY_CURRENT_TOURNAMENT_MATCHES
 } from '../constants';
 
 export function loadMatchesData(payload) {
@@ -30,6 +34,13 @@ export function loadTournamentsData(payload) {
   };
 }
 
+export function loadTeamsData(payload) {
+  return {
+    type: LOAD_TEAMS_DATA,
+    payload
+  };
+}
+
 export function displayMatches() {
   return { type: DISPLAY_MATCHES };
 }
@@ -48,4 +59,23 @@ export function openModal() {
 
 export function closeModal() {
   return { type: CLOSE_MODAL };
+}
+
+export function setCurrentTournament(payload) {
+  return {
+    type: SET_CURRENT_TOURNAMENT,
+    payload
+  };
+}
+
+export function displayCurrentTournamentLeaderboard() {
+  return {
+    type: DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD
+  };
+}
+
+export function displayCurrentTournamentMatches() {
+  return {
+    type: DISPLAY_CURRENT_TOURNAMENT_MATCHES
+  };
 }

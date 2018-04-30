@@ -8,12 +8,16 @@ import {
   LOAD_MATCHES_DATA,
   LOAD_PLAYERS_DATA,
   LOAD_TOURNAMENTS_DATA,
+  LOAD_TEAMS_DATA,
   DISPLAY_MATCHES,
   DISPLAY_PLAYERS,
   DISPLAY_TOURNAMENTS,
   OPEN_MODAL,
   CLOSE_MODAL,
-  SET_NEW_MATCH
+  SET_NEW_MATCH,
+  SET_CURRENT_TOURNAMENT,
+  DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD,
+  DISPLAY_CURRENT_TOURNAMENT_MATCHES
 } from '../constants';
 
 // TODO use a common key for teamA and teamB (score, players...), change the set new match to only one action and change only the given data in the state
@@ -26,7 +30,9 @@ const initialState = Record({
   matches: {},
   players: Map({}),
   tournaments: {},
-  currentItem: DISPLAY_MATCHES,
+  teams: {},
+  currentItem: null,
+  currentTournament: null,
   modalOpen: false,
   newMatch: {
     playedAt: '',
@@ -66,6 +72,8 @@ const rootReducer = (state = defaultState, action) => {
       return state.set('players', Map(action.payload));
     case LOAD_TOURNAMENTS_DATA:
       return state.set('tournaments', action.payload);
+    case LOAD_TEAMS_DATA:
+      return state.set('teams', action.payload);
     case DISPLAY_MATCHES:
       return state.set('currentItem', DISPLAY_MATCHES);
     case DISPLAY_PLAYERS:
@@ -122,6 +130,18 @@ const rootReducer = (state = defaultState, action) => {
 
       return state.set('newMatch', newMatch);
     }
+    case SET_CURRENT_TOURNAMENT:
+      return action.payload
+        ? state
+            .set('currentTournament', action.payload)
+            .set('currentItem', DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD)
+        : state
+            .set('currentTournament', action.payload)
+            .set('currentItem', DISPLAY_MATCHES);
+    case DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD:
+      return state.set('currentItem', DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD);
+    case DISPLAY_CURRENT_TOURNAMENT_MATCHES:
+      return state.set('currentItem', DISPLAY_CURRENT_TOURNAMENT_MATCHES);
     default:
       return state;
   }

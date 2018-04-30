@@ -21,7 +21,7 @@ class Tournaments extends Component {
       <div className="Tournaments">
         <h3 className="Tournaments-title">Tournaments</h3>
         {_.map(tournaments, (tournament, key) => (
-          <Tournament key={key} tournament={tournament} />
+          <Tournament key={key} tournamentId={key} tournament={tournament} />
         ))}
       </div>
     );

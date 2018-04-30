@@ -5,22 +5,26 @@ import { firestore } from '../firebase';
 import {
   loadMatchesData,
   loadPlayersData,
-  loadTournamentsData
+  loadTournamentsData,
+  loadTeamsData
 } from '../actions';
 
 const mapDispatchToProps = {
   loadMatchesData,
   loadPlayersData,
-  loadTournamentsData
+  loadTournamentsData,
+  loadTeamsData
 };
 
 const matchesRef = firestore.collection('matches').limit(100);
 const playersRef = firestore.collection('players').limit(100);
 const tournamentsRef = firestore.collection('tournaments').limit(100);
+const teamsRef = firestore.collection('teams').limit(100);
 
 const matches = {};
 const players = {};
 const tournaments = {};
+const teams = {};
 
 export const saveNewMatchIntoFirestore = data => {
   firestore.collection('matches').add(data);
@@ -57,6 +61,16 @@ class FirebaseData extends Component {
         console.log(`Encountered error: ${err}`);
       }
     );
+
+    teamsRef.onSnapshot(
+      snapshot => {
+        snapshot.docs.map(doc => (teams[doc.id] = doc.data()));
+        this.props.loadTeamsData(teams);
+      },
+      err => {
+        console.log(`Encountered error: ${err}`);
+      }
+    );
   }
 
   render() {
@@ -67,7 +81,8 @@ class FirebaseData extends Component {
 FirebaseData.propTypes = {
   loadMatchesData: PropTypes.func,
   loadPlayersData: PropTypes.func,
-  loadTournamentsData: PropTypes.func
+  loadTournamentsData: PropTypes.func,
+  loadTeamsData: PropTypes.func
 };
 
 export default connect(null, mapDispatchToProps)(FirebaseData);
