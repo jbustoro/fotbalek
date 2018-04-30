@@ -5,7 +5,7 @@ import './App.css';
 import FirebaseAuth from './FirebaseAuth';
 import FirebaseData from './FirebaseData';
 import SignIn from './SignIn';
-import CurrentUser from './CurrentUser';
+import SignOut from './SignOut';
 import Matches from './Matches';
 import Players from './Players';
 import Tournaments from './Tournaments';
@@ -15,13 +15,22 @@ import {
   SIGNED_IN,
   DISPLAY_MATCHES,
   DISPLAY_PLAYERS,
-  DISPLAY_TOURNAMENTS
+  DISPLAY_TOURNAMENTS,
+  DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD,
+  DISPLAY_CURRENT_TOURNAMENT_MATCHES
 } from '../constants';
-import { authStatusSelector, currentItemSelector } from '../selectors';
+import {
+  authStatusSelector,
+  currentItemSelector,
+  currentTournamentSelector
+} from '../selectors';
+import CurrentTournamentLeaderboard from './CurrentTournamentLeaderboard';
+import CurrentTournamentMatches from './CurrentTournamentMatches';
 
 const mapStateToProps = state => ({
   authStatus: authStatusSelector(state),
-  currentItem: currentItemSelector(state)
+  currentItem: currentItemSelector(state),
+  currentTournament: currentTournamentSelector(state)
 });
 
 class App extends Component {
@@ -34,17 +43,23 @@ class App extends Component {
         <header>
           <h1 className="App-title">Fotbalek</h1>
           {authStatus === ANONYMOUS && <SignIn />}
+          {authStatus === SIGNED_IN && <SignOut />}
         </header>
         <div>
           {authStatus === SIGNED_IN && (
             <div>
               <FirebaseData />
-              <CurrentUser />
               <NavigationBar />
               <div className="Data-container">
                 {currentItem === DISPLAY_MATCHES && <Matches />}
                 {currentItem === DISPLAY_PLAYERS && <Players />}
                 {currentItem === DISPLAY_TOURNAMENTS && <Tournaments />}
+                {currentItem === DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD && (
+                  <CurrentTournamentLeaderboard />
+                )}
+                {currentItem === DISPLAY_CURRENT_TOURNAMENT_MATCHES && (
+                  <CurrentTournamentMatches />
+                )}
               </div>
             </div>
           )}
