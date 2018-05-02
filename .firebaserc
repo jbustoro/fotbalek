@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "fotbalek-rating",
+    "dev": "fotbalek-test"
+  }
+}

@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { Button } from 'react-bootstrap';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
 import PropTypes from 'prop-types';
 import {
   currentTournamentSelector,
   matchesSelector,
   playersSelector
 } from '../selectors';
+import { openModal } from '../actions';
 import Match from './Match';
+import Loading from './Loading';
+import NewMatch from './NewMatch';
 
 const mapStateToProps = state => ({
   currentTournament: currentTournamentSelector(state),
@@ -15,14 +21,30 @@ const mapStateToProps = state => ({
   players: playersSelector(state)
 });
 
+const mapDispatchToProps = {
+  openModal
+};
+
 class CurrentTournamentMatches extends Component {
+  handleClick() {
+    this.props.openModal();
+  }
+
   render() {
     const { currentTournament, matches, players } = this.props;
     const currentTournamentMatches = _.filter(matches, {
       tournamentId: currentTournament
     });
 
-    return (
+    return _.isEmpty(currentTournamentMatches) ? (
+      <div>
+        <Loading />
+        <button className="Add-Match" onClick={() => this.handleClick()}>
+          <FontAwesomeIcon icon={faPlus} />
+        </button>
+        <NewMatch />
+      </div>
+    ) : (
       <div className="Current-tournament-leaderboard">
         {_.map(currentTournamentMatches, (match, key) => {
           const {
@@ -59,7 +81,12 @@ class CurrentTournamentMatches extends Component {
             />
           );
         })}
+        <Button className="Add-Match" onClick={() => this.handleClick()}>
+          <FontAwesomeIcon icon={faPlus} />
+        </Button>
+        <NewMatch />
       </div>
+      //TODO on new match add the currentTournamentId
     );
   }
 }
@@ -67,7 +94,10 @@ class CurrentTournamentMatches extends Component {
 CurrentTournamentMatches.propTypes = {
   currentTournament: PropTypes.string,
   matches: PropTypes.object,
-  players: PropTypes.object
+  players: PropTypes.object,
+  openModal: PropTypes.func
 };
 
-export default connect(mapStateToProps)(CurrentTournamentMatches);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  CurrentTournamentMatches
+);
