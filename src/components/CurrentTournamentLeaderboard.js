@@ -25,7 +25,7 @@ class CurrentTournamentLeaderboard extends Component {
 
     return (
       <div className="Current-tournament-leaderboard">
-        <Table striped bordered condensed hover>
+        <Table striped bordered condensed>
           <thead>
             <tr>
               <th>#</th>
@@ -46,7 +46,7 @@ class CurrentTournamentLeaderboard extends Component {
 
               return (
                 <tr key={key}>
-                  <td />
+                  <td>-</td>
                   <td>
                     {players.get(player0).name}
                     <br />

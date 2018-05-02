@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import dateFormat from 'dateformat';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faArrowUp from '@fortawesome/fontawesome-free-solid/faArrowUp';
+import faArrowDown from '@fortawesome/fontawesome-free-solid/faArrowDown';
 import PropTypes from 'prop-types';
 import './Match.css';
 
@@ -21,21 +24,41 @@ class Match extends Component {
           <p>{dateFormat(playedAt, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</p>
         </div>
         <div className="Match-team">
-          <p className="Match-player">
-            {`${playerA0 ? playerA0.name : 'undefined'}`}
-          </p>
-          <p className="Match-player">
-            {`${playerA1 ? playerA1.name : 'undefined'} `}
-          </p>
+          <p className="Match-player">{playerA0.name}</p>
+          <div className="Match-gain">
+            <FontAwesomeIcon
+              icon={playerA0.gain > 0 ? faArrowUp : faArrowDown}
+              style={playerA0.gain > 0 ? { color: 'green' } : { color: 'red' }}
+            />
+            {` ${playerA0.gain}`}
+          </div>
+          <p className="Match-player">{playerA1.name}</p>
+          <div className="Match-gain">
+            <FontAwesomeIcon
+              icon={playerA1.gain > 0 ? faArrowUp : faArrowDown}
+              style={playerA1.gain > 0 ? { color: 'green' } : { color: 'red' }}
+            />
+            {` ${playerA1.gain}`}
+          </div>
         </div>
         <p className="Match-result">{`${resultA} - ${resultB}`}</p>
         <div className="Match-team">
-          <p className="Match-player">
-            {`${playerB0 ? playerB0.name : 'undefined'}`}
-          </p>
-          <p className="Match-player">
-            {`${playerB1 ? playerB1.name : 'undefined'}`}
-          </p>
+          <p className="Match-player">{playerB0.name}</p>
+          <div className="Match-gain">
+            <FontAwesomeIcon
+              icon={playerB0.gain > 0 ? faArrowUp : faArrowDown}
+              style={playerB0.gain > 0 ? { color: 'green' } : { color: 'red' }}
+            />
+            {` ${playerB0.gain}`}
+          </div>
+          <p className="Match-player">{playerB1.name}</p>
+          <div className="Match-gain">
+            <FontAwesomeIcon
+              icon={playerB1.gain > 0 ? faArrowUp : faArrowDown}
+              style={playerB1.gain > 0 ? { color: 'green' } : { color: 'red' }}
+            />
+            {` ${playerB1.gain}`}
+          </div>
         </div>
         {tournamentId && (
           <p className="Match-tournament">{`Tournament ID: ${tournamentId}`}</p>

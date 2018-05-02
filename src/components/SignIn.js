@@ -19,7 +19,7 @@ class SignIn extends Component {
   render() {
     return (
       <div className="SignIn">
-        <Button bsStyle="success" onClick={() => this.handleClick()}>
+        <Button bsStyle="default" onClick={() => this.handleClick()}>
           Sign In
         </Button>
       </div>

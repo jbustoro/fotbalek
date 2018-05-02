@@ -19,18 +19,12 @@ import {
   DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD,
   DISPLAY_CURRENT_TOURNAMENT_MATCHES
 } from '../constants';
-import {
-  authStatusSelector,
-  currentItemSelector,
-  currentTournamentSelector
-} from '../selectors';
+import { authStatusSelector, currentItemSelector } from '../selectors';
 import CurrentTournamentLeaderboard from './CurrentTournamentLeaderboard';
-import CurrentTournamentMatches from './CurrentTournamentMatches';
 
 const mapStateToProps = state => ({
   authStatus: authStatusSelector(state),
-  currentItem: currentItemSelector(state),
-  currentTournament: currentTournamentSelector(state)
+  currentItem: currentItemSelector(state)
 });
 
 class App extends Component {
@@ -51,14 +45,14 @@ class App extends Component {
               <FirebaseData />
               <NavigationBar />
               <div className="Data-container">
-                {currentItem === DISPLAY_MATCHES && <Matches />}
+                {(currentItem === DISPLAY_MATCHES ||
+                  currentItem === DISPLAY_CURRENT_TOURNAMENT_MATCHES) && (
+                  <Matches />
+                )}
                 {currentItem === DISPLAY_PLAYERS && <Players />}
                 {currentItem === DISPLAY_TOURNAMENTS && <Tournaments />}
                 {currentItem === DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD && (
                   <CurrentTournamentLeaderboard />
-                )}
-                {currentItem === DISPLAY_CURRENT_TOURNAMENT_MATCHES && (
-                  <CurrentTournamentMatches />
                 )}
               </div>
             </div>
