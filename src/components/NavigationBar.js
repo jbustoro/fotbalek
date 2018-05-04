@@ -1,62 +1,80 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import faArrowLeft from '@fortawesome/fontawesome-free-solid/faArrowLeft';
-import PropTypes from 'prop-types';
-import { currentTournamentSelector } from '../selectors';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faArrowLeft from '@fortawesome/fontawesome-free-solid/faArrowLeft'
+import PropTypes from 'prop-types'
+import { currentTournamentSelector, navActiveKeySelector } from '../selectors'
 import {
+  setNavActiveKey,
   displayMatches,
   displayPlayers,
   displayTournaments,
   setCurrentTournament,
   displayCurrentTournamentLeaderboard,
   displayCurrentTournamentMatches
-} from '../actions';
+} from '../actions'
 
 const mapStateToProps = state => ({
-  currentTournament: currentTournamentSelector(state)
-});
+  currentTournament: currentTournamentSelector(state),
+  navActiveKey: navActiveKeySelector(state)
+})
 
 const mapDispatchToProps = {
+  setNavActiveKey,
   displayMatches,
   displayPlayers,
   displayTournaments,
   setCurrentTournament,
   displayCurrentTournamentLeaderboard,
   displayCurrentTournamentMatches
-};
+}
 
 class NavigationBar extends Component {
+  handleSelect(selectedKey) {
+    this.props.setNavActiveKey(selectedKey)
+  }
+
   render() {
-    const { currentTournament } = this.props;
+    const { currentTournament } = this.props
 
     return (
       <Navbar staticTop fluid>
         <Navbar.Collapse>
           {currentTournament === null ? (
-            <Nav>
-              <NavItem onClick={() => this.props.displayMatches()}>
+            <Nav
+              activeKey={this.props.navActiveKey}
+              onSelect={() => this.handleSelect()}
+            >
+              <NavItem eventKey={1} onClick={() => this.props.displayMatches()}>
                 Matches
               </NavItem>
-              <NavItem onClick={() => this.props.displayPlayers()}>
+              <NavItem eventKey={2} onClick={() => this.props.displayPlayers()}>
                 Players
               </NavItem>
-              <NavItem onClick={() => this.props.displayTournaments()}>
+              <NavItem
+                eventKey={3}
+                onClick={() => this.props.displayTournaments()}
+              >
                 Tournaments
               </NavItem>
             </Nav>
           ) : (
-            <Nav>
+            <Nav
+              activeKey={this.props.navActiveKey}
+              onSelect={() => this.handleSelect()}
+            >
               <NavItem onClick={() => this.props.setCurrentTournament(null)}>
                 <FontAwesomeIcon className="ArrowLeft" icon={faArrowLeft} />
               </NavItem>
               <NavItem
+                eventKey={1}
                 onClick={() => this.props.displayCurrentTournamentLeaderboard()}
               >
                 LeaderBoard
               </NavItem>
               <NavItem
+                eventKey={2}
                 onClick={() => this.props.displayCurrentTournamentMatches()}
               >
                 Matches
@@ -65,12 +83,13 @@ class NavigationBar extends Component {
           )}
         </Navbar.Collapse>
       </Navbar>
-    );
+    )
   }
 }
 
 Navbar.propTypes = {
-  authStatus: PropTypes.string,
+  navActiveKey: PropTypes.number,
+  setNavActiveKey: PropTypes.func,
   displayMatches: PropTypes.func,
   displayPlayers: PropTypes.func,
   displayTournaments: PropTypes.func,
@@ -78,6 +97,6 @@ Navbar.propTypes = {
   setCurrentTournament: PropTypes.func,
   displayCurrentTournamentLeaderboard: PropTypes.func,
   displayCurrentTournamentMatches: PropTypes.func
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar)

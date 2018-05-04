@@ -8,6 +8,7 @@ import {
   DISPLAY_TOURNAMENTS,
   OPEN_MODAL,
   CLOSE_MODAL,
+  SET_NAV_ACTIVE_KEY,
   SET_CURRENT_TOURNAMENT,
   DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD,
   DISPLAY_CURRENT_TOURNAMENT_MATCHES
@@ -59,6 +60,13 @@ export function openModal() {
 
 export function closeModal() {
   return { type: CLOSE_MODAL };
+}
+
+export function setNavActiveKey(payload) {
+  return {
+    type: SET_NAV_ACTIVE_KEY,
+    payload
+  };
 }
 
 export function setCurrentTournament(payload) {
