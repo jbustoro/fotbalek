@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { FormControl } from 'react-bootstrap'
 import PropTypes from 'prop-types'
-import { playersSelector } from '../selectors'
+import { playersSelector } from '../../selectors'
 
 const mapStateToProps = state => ({
   players: playersSelector(state)

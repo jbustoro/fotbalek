@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import PropTypes from 'prop-types'
-import { auth, googleAuthProvider } from '../firebase'
-import { attemptingLogin } from '../actions/auth'
+import { auth, googleAuthProvider } from '../../firebase'
+import { attemptingLogin } from '../../actions/auth'
 import './SignIn.css'
 
 const mapDispatchToProps = {

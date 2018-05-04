@@ -75,7 +75,7 @@ const rootReducer = (state = defaultState, action) => {
     case CLOSE_MODAL: {
       const clearNewMatch = {
         playedAt: null,
-        scoreA: '',
+        scoreA: 10,
         scoreB: '',
         playerA0: null,
         playerA1: null,

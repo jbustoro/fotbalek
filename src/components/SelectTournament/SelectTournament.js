@@ -4,7 +4,7 @@ import _ from 'lodash'
 import dateFormat from 'dateformat'
 import { FormControl } from 'react-bootstrap'
 import PropTypes from 'prop-types'
-import { tournamentsSelector } from '../selectors'
+import { tournamentsSelector } from '../../selectors'
 
 const mapStateToProps = state => ({
   tournaments: tournamentsSelector(state)

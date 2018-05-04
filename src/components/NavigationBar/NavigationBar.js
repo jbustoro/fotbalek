@@ -4,7 +4,10 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faArrowLeft from '@fortawesome/fontawesome-free-solid/faArrowLeft'
 import PropTypes from 'prop-types'
-import { currentTournamentSelector, navActiveKeySelector } from '../selectors'
+import {
+  currentTournamentSelector,
+  navActiveKeySelector
+} from '../../selectors'
 import {
   setNavActiveKey,
   displayMatches,
@@ -13,7 +16,7 @@ import {
   setCurrentTournament,
   displayCurrentTournamentLeaderboard,
   displayCurrentTournamentMatches
-} from '../actions'
+} from '../../actions'
 
 const mapStateToProps = state => ({
   currentTournament: currentTournamentSelector(state),

@@ -1,8 +1,8 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { auth } from '../firebase'
-import { signedIn } from '../actions/auth'
+import { auth } from '../../firebase'
+import { signedIn } from '../../actions/auth'
 
 const mapDispatchToProps = {
   signedIn

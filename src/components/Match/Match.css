@@ -1,7 +1,11 @@
 .Match {
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+}
+
+.Match:last-of-type {
+  border-bottom: 1px solid #ccc;
 }
 
 .Match-date {

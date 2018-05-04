@@ -1,5 +1,5 @@
 import { put, call, takeLatest } from 'redux-saga/effects'
-import { saveNewMatchIntoFirestore } from './components/FirebaseData'
+import { saveNewMatchIntoFirestore } from './components/FirebaseData/FirebaseData'
 import { ADD_NEW_MATCH, MATCH_SAVED } from './constants'
 
 function* saveNewMatch(action) {

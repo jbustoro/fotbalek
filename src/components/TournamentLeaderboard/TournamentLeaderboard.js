@@ -6,7 +6,8 @@ import {
   currentTournamentSelector,
   teamsSelector,
   playersSelector
-} from '../selectors'
+} from '../../selectors'
+import './TournamentLeaderboard.css'
 
 const mapStateToProps = state => ({
   currentTournament: currentTournamentSelector(state),
@@ -25,7 +26,8 @@ class TournamentLeaderboard extends Component {
       .reverse()
 
     return (
-      <div className="Current-tournament-leaderboard">
+      <div className="Tournament-leaderboard">
+        <h3 className="Tournament-leaderboard-title">Leaderboard</h3>
         <Table striped bordered condensed>
           <thead>
             <tr>

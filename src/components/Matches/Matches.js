@@ -9,11 +9,11 @@ import {
   matchesSelector,
   playersSelector,
   currentTournamentSelector
-} from '../selectors'
-import { openModal } from '../actions'
-import Match from './Match'
-import Loading from './Loading'
-import NewMatch from './NewMatch'
+} from '../../selectors'
+import { openModal } from '../../actions'
+import Loading from '../Loading/Loading'
+import Match from '../Match/Match'
+import NewMatch from '../NewMatch/NewMatch'
 import './Matches.css'
 
 const mapStateToProps = state => ({

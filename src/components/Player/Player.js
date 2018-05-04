@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { NORM_VALUE } from '../constants'
+import { NORM_VALUE } from '../../constants'
 import './Player.css'
 
 class Player extends Component {

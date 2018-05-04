@@ -1,13 +1,13 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { firestore } from '../firebase'
+import { firestore } from '../../firebase'
 import {
   loadMatchesData,
   loadPlayersData,
   loadTournamentsData,
   loadTeamsData
-} from '../actions'
+} from '../../actions'
 
 const mapDispatchToProps = {
   loadMatchesData,

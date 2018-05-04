@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import { Table } from 'react-bootstrap'
 import PropTypes from 'prop-types'
-import Player from './Player'
-import { playersSelector } from '../selectors'
-import Loading from './Loading'
+import { playersSelector } from '../../selectors'
+import Loading from '../Loading/Loading'
+import Player from '../Player/Player'
 import './Players.css'
 
 const mapStateToProps = state => ({

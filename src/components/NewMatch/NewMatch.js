@@ -4,11 +4,6 @@ import Modal from 'react-responsive-modal'
 import { Button } from 'react-bootstrap'
 import swal from 'sweetalert'
 import PropTypes from 'prop-types'
-import { modalOpenSelector, newMatchSelector } from '../selectors'
-import { closeModal } from '../actions'
-import SelectPlayer from './SelectPlayer'
-import SelectTournament from './SelectTournament'
-import { setNewMatch, addNewMatch } from '../actions/newMatch'
 import {
   TEAM_A,
   TEAM_B,
@@ -16,7 +11,12 @@ import {
   PLAYER_1,
   SCORE,
   TOURNAMENT
-} from '../constants'
+} from '../../constants'
+import { modalOpenSelector, newMatchSelector } from '../../selectors'
+import { closeModal } from '../../actions'
+import { setNewMatch, addNewMatch } from '../../actions/newMatch'
+import SelectPlayer from '../SelectPlayer/SelectPlayer'
+import SelectTournament from '../SelectTournament/SelectTournament'
 import './NewMatch.css'
 
 const mapStateToProps = state => ({

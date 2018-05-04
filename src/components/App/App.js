@@ -1,16 +1,6 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import './App.css'
-import FirebaseAuth from './FirebaseAuth'
-import FirebaseData from './FirebaseData'
-import NavigationBar from './NavigationBar'
-import SignIn from './SignIn'
-import SignOut from './SignOut'
-import Matches from './Matches'
-import Players from './Players'
-import Tournaments from './Tournaments'
-import TournamentLeaderboard from './TournamentLeaderboard'
+import PropTypes from 'prop-types'
 import {
   ANONYMOUS,
   SIGNED_IN,
@@ -19,8 +9,18 @@ import {
   DISPLAY_TOURNAMENTS,
   DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD,
   DISPLAY_CURRENT_TOURNAMENT_MATCHES
-} from '../constants'
-import { authStatusSelector, currentItemSelector } from '../selectors'
+} from '../../constants'
+import { authStatusSelector, currentItemSelector } from '../../selectors'
+import FirebaseAuth from '../FirebaseAuth/FirebaseAuth'
+import SignIn from '../SignIn/SignIn'
+import SignOut from '../SignOut/SignOut'
+import FirebaseData from '../FirebaseData/FirebaseData'
+import NavigationBar from '../NavigationBar/NavigationBar'
+import Matches from '../Matches/Matches'
+import Players from '../Players/Players'
+import Tournaments from '../Tournaments/Tournaments'
+import TournamentLeaderboard from '../TournamentLeaderboard/TournamentLeaderboard'
+import './App.css'
 
 const mapStateToProps = state => ({
   authStatus: authStatusSelector(state),

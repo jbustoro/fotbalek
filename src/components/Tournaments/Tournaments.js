@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
-import Tournament from './Tournament'
-import { tournamentsSelector } from '../selectors'
-import Loading from './Loading'
+import { tournamentsSelector } from '../../selectors'
+import Loading from '../Loading/Loading'
+import Tournament from '../Tournament/Tournament'
 import './Tournaments.css'
 
 const mapStateToProps = state => ({
