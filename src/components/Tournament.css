@@ -1,5 +1,4 @@
 .Tournament {
-  margin-bottom: 1em;
   display: flex;
   flex-wrap: wrap;
   border: 1px solid #ccc;
@@ -17,4 +16,5 @@
 .Tournament-active {
   margin: 1em;
   flex-grow: 1;
+  color: #2ecc40;
 }

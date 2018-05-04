@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import _ from 'lodash';
-import { Table } from 'react-bootstrap';
-import PropTypes from 'prop-types';
-import Player from './Player';
-import { playersSelector } from '../selectors';
-import Loading from './Loading';
-import './Players.css';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import _ from 'lodash'
+import { Table } from 'react-bootstrap'
+import PropTypes from 'prop-types'
+import Player from './Player'
+import { playersSelector } from '../selectors'
+import Loading from './Loading'
+import './Players.css'
 
 const mapStateToProps = state => ({
   players: playersSelector(state)
-});
+})
 
 class Players extends Component {
   render() {
-    const { players } = this.props;
-    const orderedPlayers = players.sortBy(player => player.order);
+    const { players } = this.props
+    const orderedPlayers = players.sortBy(player => player.order)
 
     return _.isEmpty(players) ? (
       <Loading />
@@ -39,12 +39,12 @@ class Players extends Component {
           </tbody>
         </Table>
       </div>
-    );
+    )
   }
 }
 
 Players.propTypes = {
   players: PropTypes.object
-};
+}
 
-export default connect(mapStateToProps)(Players);
+export default connect(mapStateToProps)(Players)

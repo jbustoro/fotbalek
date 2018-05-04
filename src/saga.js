@@ -1,14 +1,18 @@
-import { put, call, takeLatest } from 'redux-saga/effects';
-import { saveNewMatchIntoFirestore } from './components/FirebaseData';
-import { ADD_NEW_MATCH, MATCH_SAVED } from './constants';
+import { put, call, takeLatest } from 'redux-saga/effects'
+import { saveNewMatchIntoFirestore } from './components/FirebaseData'
+import { ADD_NEW_MATCH, MATCH_SAVED } from './constants'
 
 function* saveNewMatch(action) {
   const {
     playedAt,
-    result: { scoreA, scoreB },
-    teams: { teamA: { playerA0, playerA1 }, teamB: { playerB0, playerB1 } },
+    scoreA,
+    scoreB,
+    playerA0,
+    playerA1,
+    playerB0,
+    playerB1,
     tournamentId
-  } = action.payload;
+  } = action.payload
 
   const transformedNewMatch = {
     playedAt,
@@ -24,14 +28,14 @@ function* saveNewMatch(action) {
       }
     },
     tournamentId
-  };
+  }
 
-  yield call(saveNewMatchIntoFirestore, transformedNewMatch);
-  yield put({ type: MATCH_SAVED });
+  yield call(saveNewMatchIntoFirestore, transformedNewMatch)
+  yield put({ type: MATCH_SAVED })
 }
 
 function* saga() {
-  yield takeLatest(ADD_NEW_MATCH, saveNewMatch);
+  yield takeLatest(ADD_NEW_MATCH, saveNewMatch)
 }
 
-export default saga;
+export default saga

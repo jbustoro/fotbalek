@@ -1,80 +1,80 @@
-import { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { firestore } from '../firebase';
+import { Component } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { firestore } from '../firebase'
 import {
   loadMatchesData,
   loadPlayersData,
   loadTournamentsData,
   loadTeamsData
-} from '../actions';
+} from '../actions'
 
 const mapDispatchToProps = {
   loadMatchesData,
   loadPlayersData,
   loadTournamentsData,
   loadTeamsData
-};
+}
 
-const matchesRef = firestore.collection('matches').limit(100);
-const playersRef = firestore.collection('players').limit(100);
-const tournamentsRef = firestore.collection('tournaments').limit(100);
-const teamsRef = firestore.collection('teams').limit(100);
+const matchesRef = firestore.collection('matches').limit(100)
+const playersRef = firestore.collection('players').limit(100)
+const tournamentsRef = firestore.collection('tournaments').limit(100)
+const teamsRef = firestore.collection('teams').limit(100)
 
-const matches = {};
-const players = {};
-const tournaments = {};
-const teams = {};
+const matches = {}
+const players = {}
+const tournaments = {}
+const teams = {}
 
-export const saveNewMatchIntoFirestore = data => {
-  firestore.collection('matches').add(data);
-};
+export const saveNewMatchIntoFirestore = match => {
+  firestore.collection('matches').add(match)
+}
 
 class FirebaseData extends Component {
   componentDidMount() {
     matchesRef.onSnapshot(
       snapshot => {
-        snapshot.docs.map(doc => (matches[doc.id] = doc.data()));
-        this.props.loadMatchesData(matches);
+        snapshot.docs.map(doc => (matches[doc.id] = doc.data()))
+        this.props.loadMatchesData(matches)
       },
       err => {
-        console.log(`Encountered error: ${err}`);
+        console.log(`Encountered error: ${err}`)
       }
-    );
+    )
 
     playersRef.onSnapshot(
       snapshot => {
-        snapshot.docs.map(doc => (players[doc.id] = doc.data()));
-        this.props.loadPlayersData(players);
+        snapshot.docs.map(doc => (players[doc.id] = doc.data()))
+        this.props.loadPlayersData(players)
       },
       err => {
-        console.log(`Encountered error: ${err}`);
+        console.log(`Encountered error: ${err}`)
       }
-    );
+    )
 
     tournamentsRef.onSnapshot(
       snapshot => {
-        snapshot.docs.map(doc => (tournaments[doc.id] = doc.data()));
-        this.props.loadTournamentsData(tournaments);
+        snapshot.docs.map(doc => (tournaments[doc.id] = doc.data()))
+        this.props.loadTournamentsData(tournaments)
       },
       err => {
-        console.log(`Encountered error: ${err}`);
+        console.log(`Encountered error: ${err}`)
       }
-    );
+    )
 
     teamsRef.onSnapshot(
       snapshot => {
-        snapshot.docs.map(doc => (teams[doc.id] = doc.data()));
-        this.props.loadTeamsData(teams);
+        snapshot.docs.map(doc => (teams[doc.id] = doc.data()))
+        this.props.loadTeamsData(teams)
       },
       err => {
-        console.log(`Encountered error: ${err}`);
+        console.log(`Encountered error: ${err}`)
       }
-    );
+    )
   }
 
   render() {
-    return null;
+    return null
   }
 }
 
@@ -83,6 +83,6 @@ FirebaseData.propTypes = {
   loadPlayersData: PropTypes.func,
   loadTournamentsData: PropTypes.func,
   loadTeamsData: PropTypes.func
-};
+}
 
-export default connect(null, mapDispatchToProps)(FirebaseData);
+export default connect(null, mapDispatchToProps)(FirebaseData)

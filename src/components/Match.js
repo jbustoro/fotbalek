@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import dateFormat from 'dateformat';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import faArrowUp from '@fortawesome/fontawesome-free-solid/faArrowUp';
-import faArrowDown from '@fortawesome/fontawesome-free-solid/faArrowDown';
-import PropTypes from 'prop-types';
-import './Match.css';
+import React, { Component } from 'react'
+import dateFormat from 'dateformat'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faArrowUp from '@fortawesome/fontawesome-free-solid/faArrowUp'
+import faArrowDown from '@fortawesome/fontawesome-free-solid/faArrowDown'
+import PropTypes from 'prop-types'
+import './Match.css'
 
 class Match extends Component {
   render() {
@@ -16,7 +16,7 @@ class Match extends Component {
       playerB0,
       playerB1,
       tournamentId
-    } = this.props;
+    } = this.props
 
     return (
       <div className="Match">
@@ -30,7 +30,7 @@ class Match extends Component {
               icon={playerA0.gain > 0 ? faArrowUp : faArrowDown}
               style={playerA0.gain > 0 ? { color: 'green' } : { color: 'red' }}
             />
-            {` ${playerA0.gain}`}
+            {` ${Math.floor(playerA0.gain * 100)}`}
           </div>
           <p className="Match-player">{playerA1.name}</p>
           <div className="Match-gain">
@@ -38,7 +38,7 @@ class Match extends Component {
               icon={playerA1.gain > 0 ? faArrowUp : faArrowDown}
               style={playerA1.gain > 0 ? { color: 'green' } : { color: 'red' }}
             />
-            {` ${playerA1.gain}`}
+            {` ${Math.floor(playerA1.gain * 100)}`}
           </div>
         </div>
         <p className="Match-result">{`${resultA} - ${resultB}`}</p>
@@ -49,7 +49,7 @@ class Match extends Component {
               icon={playerB0.gain > 0 ? faArrowUp : faArrowDown}
               style={playerB0.gain > 0 ? { color: 'green' } : { color: 'red' }}
             />
-            {` ${playerB0.gain}`}
+            {` ${Math.floor(playerB0.gain * 100)}`}
           </div>
           <p className="Match-player">{playerB1.name}</p>
           <div className="Match-gain">
@@ -57,14 +57,14 @@ class Match extends Component {
               icon={playerB1.gain > 0 ? faArrowUp : faArrowDown}
               style={playerB1.gain > 0 ? { color: 'green' } : { color: 'red' }}
             />
-            {` ${playerB1.gain}`}
+            {` ${Math.floor(playerB1.gain * 100)}`}
           </div>
         </div>
         {tournamentId && (
           <p className="Match-tournament">{`Tournament ID: ${tournamentId}`}</p>
         )}
       </div>
-    );
+    )
   }
 }
 
@@ -76,6 +76,6 @@ Match.propTypes = {
   playerB0: PropTypes.object,
   playerB1: PropTypes.object,
   tournamentId: PropTypes.string
-};
+}
 
-export default Match;
+export default Match

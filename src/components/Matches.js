@@ -1,44 +1,43 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import _ from 'lodash';
-import { Button } from 'react-bootstrap';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import _ from 'lodash'
+import { Button } from 'react-bootstrap'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faPlus from '@fortawesome/fontawesome-free-solid/faPlus'
+import PropTypes from 'prop-types'
 import {
   matchesSelector,
   playersSelector,
   currentTournamentSelector
-} from '../selectors';
-import { openModal } from '../actions';
-import Match from './Match';
-import Loading from './Loading';
-import NewMatch from './NewMatch';
-import './Matches.css';
+} from '../selectors'
+import { openModal } from '../actions'
+import Match from './Match'
+import Loading from './Loading'
+import NewMatch from './NewMatch'
+import './Matches.css'
 
 const mapStateToProps = state => ({
   matches: matchesSelector(state),
   players: playersSelector(state),
   currentTournament: currentTournamentSelector(state)
-});
+})
 
 const mapDispatchToProps = {
   openModal
-};
+}
 
 class Matches extends Component {
   handleClick() {
-    this.props.openModal();
+    this.props.openModal()
   }
 
   render() {
-    const { matches, players, currentTournament } = this.props;
-
+    const { matches, players, currentTournament } = this.props
     const matchesToMap = !currentTournament
       ? matches
       : _.filter(matches, {
           tournamentId: currentTournament
-        });
+        })
 
     return _.isEmpty(matchesToMap) ? (
       <div>
@@ -61,12 +60,18 @@ class Matches extends Component {
             },
             tournamentId,
             gains
-          } = match;
+          } = match
 
-          const playerData = player => ({
-            ...players.get(player),
-            gain: gains[player]
-          });
+          let playerData = player => ({
+            ...players.get(player)
+          })
+
+          if (gains) {
+            playerData = player => ({
+              ...players.get(player),
+              gain: gains[player]
+            })
+          }
 
           return (
             <Match
@@ -79,14 +84,14 @@ class Matches extends Component {
               playerB1={playerData(playerB1)}
               tournamentId={tournamentId}
             />
-          );
+          )
         })}
         <Button className="Add-Match" onClick={() => this.handleClick()}>
           <FontAwesomeIcon icon={faPlus} />
         </Button>
         <NewMatch />
       </div>
-    );
+    )
   }
 }
 
@@ -95,6 +100,6 @@ Matches.propTypes = {
   players: PropTypes.object,
   openModal: PropTypes.func,
   currentTournament: PropTypes.string
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Matches);
+export default connect(mapStateToProps, mapDispatchToProps)(Matches)

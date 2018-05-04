@@ -1,5 +1,4 @@
 .Match {
-  margin-top: 1em;
   display: flex;
   flex-wrap: wrap;
   border: 1px solid #ccc;
@@ -8,6 +7,7 @@
 .Match-date {
   margin: 1em;
   flex-basis: 100%;
+  font-size: medium;
 }
 
 .Match-team {
@@ -17,6 +17,7 @@
 
 .Match-player {
   width: 15em;
+  font-size: medium;
 }
 
 .Match-team:last-of-type {

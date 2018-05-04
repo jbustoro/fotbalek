@@ -1,29 +1,29 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Button } from 'react-bootstrap';
-import PropTypes from 'prop-types';
-import { auth } from '../firebase';
-import { currentUserSelector } from '../selectors';
-import { signedOut } from '../actions/auth';
-import './CurrentUser.css';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Button } from 'react-bootstrap'
+import PropTypes from 'prop-types'
+import { auth } from '../firebase'
+import { currentUserSelector } from '../selectors'
+import { signedOut } from '../actions/auth'
+import './CurrentUser.css'
 
 const mapStateToProps = state => ({
   currentUser: currentUserSelector(state)
-});
+})
 
 const mapDispatchToProps = {
   signedOut
-};
+}
 
 class CurrentUser extends Component {
   handleClick() {
-    auth.signOut();
-    this.props.signedOut();
+    auth.signOut()
+    this.props.signedOut()
   }
 
   render() {
-    const { currentUser } = this.props;
-    const { providerData: [{ photoURL }] } = currentUser;
+    const { currentUser } = this.props
+    const { providerData: [{ photoURL }] } = currentUser
 
     return (
       <div className="CurrentUser">
@@ -38,7 +38,7 @@ class CurrentUser extends Component {
           <Button onClick={() => this.handleClick()}>Sign Out</Button>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -50,6 +50,6 @@ CurrentUser.propTypes = {
     photoURL: PropTypes.string,
     uid: PropTypes.string.isRequired
   })
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(CurrentUser);
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentUser)

@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import './App.css';
-import FirebaseAuth from './FirebaseAuth';
-import FirebaseData from './FirebaseData';
-import SignIn from './SignIn';
-import SignOut from './SignOut';
-import Matches from './Matches';
-import Players from './Players';
-import Tournaments from './Tournaments';
-import NavigationBar from './NavigationBar';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import './App.css'
+import FirebaseAuth from './FirebaseAuth'
+import FirebaseData from './FirebaseData'
+import NavigationBar from './NavigationBar'
+import SignIn from './SignIn'
+import SignOut from './SignOut'
+import Matches from './Matches'
+import Players from './Players'
+import Tournaments from './Tournaments'
+import TournamentLeaderboard from './TournamentLeaderboard'
 import {
   ANONYMOUS,
   SIGNED_IN,
@@ -18,18 +19,17 @@ import {
   DISPLAY_TOURNAMENTS,
   DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD,
   DISPLAY_CURRENT_TOURNAMENT_MATCHES
-} from '../constants';
-import { authStatusSelector, currentItemSelector } from '../selectors';
-import CurrentTournamentLeaderboard from './CurrentTournamentLeaderboard';
+} from '../constants'
+import { authStatusSelector, currentItemSelector } from '../selectors'
 
 const mapStateToProps = state => ({
   authStatus: authStatusSelector(state),
   currentItem: currentItemSelector(state)
-});
+})
 
 class App extends Component {
   render() {
-    const { authStatus, currentItem } = this.props;
+    const { authStatus, currentItem } = this.props
 
     return (
       <div className="App">
@@ -52,20 +52,20 @@ class App extends Component {
                 {currentItem === DISPLAY_PLAYERS && <Players />}
                 {currentItem === DISPLAY_TOURNAMENTS && <Tournaments />}
                 {currentItem === DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD && (
-                  <CurrentTournamentLeaderboard />
+                  <TournamentLeaderboard />
                 )}
               </div>
             </div>
           )}
         </div>
       </div>
-    );
+    )
   }
 }
 
 App.propTypes = {
   authStatus: PropTypes.string,
   currentItem: PropTypes.string
-};
+}
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(App)

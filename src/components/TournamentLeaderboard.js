@@ -1,27 +1,28 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import _ from 'lodash';
-import { Table } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Table } from 'react-bootstrap'
+import PropTypes from 'prop-types'
 import {
   currentTournamentSelector,
   teamsSelector,
   playersSelector
-} from '../selectors';
+} from '../selectors'
 
 const mapStateToProps = state => ({
   currentTournament: currentTournamentSelector(state),
   teams: teamsSelector(state),
   players: playersSelector(state)
-});
+})
 
-class CurrentTournamentLeaderboard extends Component {
+class TournamentLeaderboard extends Component {
   render() {
-    const { currentTournament, teams, players } = this.props;
-    const currentTournamentTeams = _.filter(teams, {
-      tournamentId: currentTournament
-    });
-    //TODO order the teams
+    const { currentTournament, teams, players } = this.props
+    const currentTournamentTeams = teams.filter(
+      team => team.tournamentId === currentTournament
+    )
+    const orderedTeams = currentTournamentTeams
+      .sortBy(team => team.wins)
+      .reverse()
 
     return (
       <div className="Current-tournament-leaderboard">
@@ -35,18 +36,18 @@ class CurrentTournamentLeaderboard extends Component {
             </tr>
           </thead>
           <tbody>
-            {_.map(currentTournamentTeams, (team, key) => {
+            {orderedTeams.valueSeq().map((team, key) => {
               const {
                 goalsAgainst,
                 goalsFor,
                 wins,
                 loses,
                 players: [player0, player1]
-              } = team;
+              } = team
 
               return (
                 <tr key={key}>
-                  <td>-</td>
+                  <td>{key + 1}</td>
                   <td>
                     {players.get(player0).name}
                     <br />
@@ -55,19 +56,19 @@ class CurrentTournamentLeaderboard extends Component {
                   <td>{`${wins}:${loses}`}</td>
                   <td>{(goalsFor / goalsAgainst).toFixed(2)}</td>
                 </tr>
-              );
+              )
             })}
           </tbody>
         </Table>
       </div>
-    );
+    )
   }
 }
 
-CurrentTournamentLeaderboard.propTypes = {
+TournamentLeaderboard.propTypes = {
   currentTournament: PropTypes.string,
   teams: PropTypes.object,
   players: PropTypes.object
-};
+}
 
-export default connect(mapStateToProps)(CurrentTournamentLeaderboard);
+export default connect(mapStateToProps)(TournamentLeaderboard)
