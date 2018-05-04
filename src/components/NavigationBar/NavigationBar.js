@@ -47,7 +47,7 @@ class NavigationBar extends Component {
           {currentTournament === null ? (
             <Nav
               activeKey={this.props.navActiveKey}
-              onSelect={() => this.handleSelect()}
+              onSelect={event => this.handleSelect(event)}
             >
               <NavItem eventKey={1} onClick={() => this.props.displayMatches()}>
                 Matches
@@ -65,7 +65,7 @@ class NavigationBar extends Component {
           ) : (
             <Nav
               activeKey={this.props.navActiveKey}
-              onSelect={() => this.handleSelect()}
+              onSelect={event => this.handleSelect(event)}
             >
               <NavItem onClick={() => this.props.setCurrentTournament(null)}>
                 <FontAwesomeIcon className="ArrowLeft" icon={faArrowLeft} />
