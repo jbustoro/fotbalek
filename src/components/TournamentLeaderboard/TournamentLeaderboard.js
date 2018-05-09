@@ -10,9 +10,9 @@ import {
 import './TournamentLeaderboard.css'
 
 const mapStateToProps = state => ({
-  currentTournament: currentTournamentSelector(state),
-  teams: teamsSelector(state),
-  players: playersSelector(state)
+  currentTournament: currentTournamentSelector(state.display),
+  teams: teamsSelector(state.load),
+  players: playersSelector(state.load)
 })
 
 class TournamentLeaderboard extends Component {

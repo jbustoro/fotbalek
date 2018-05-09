@@ -1,4 +1,17 @@
-import { SET_NEW_MATCH, ADD_NEW_MATCH } from '../constants';
+import {
+  OPEN_MODAL,
+  CLOSE_MODAL,
+  SET_NEW_MATCH,
+  ADD_NEW_MATCH
+} from '../constants'
+
+export function openModal() {
+  return { type: OPEN_MODAL }
+}
+
+export function closeModal() {
+  return { type: CLOSE_MODAL }
+}
 
 export function setNewMatch(
   TEAM_A,
@@ -18,12 +31,12 @@ export function setNewMatch(
     SCORE,
     TOURNAMENT,
     payload
-  };
+  }
 }
 
 export function addNewMatch(payload) {
   return {
     type: ADD_NEW_MATCH,
     payload
-  };
+  }
 }

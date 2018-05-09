@@ -24,8 +24,8 @@ import logo from '../../assets/fotbalek.png'
 import './App.css'
 
 const mapStateToProps = state => ({
-  authStatus: authStatusSelector(state),
-  currentItem: currentItemSelector(state)
+  authStatus: authStatusSelector(state.auth),
+  currentItem: currentItemSelector(state.display)
 })
 
 class App extends Component {
@@ -37,7 +37,7 @@ class App extends Component {
         <FirebaseAuth />
         <header>
           <h1 className="App-title">
-            F<img className="App-logo" src={logo} alt="logo" />tbalek
+            F{<img className="App-logo" src={logo} alt="logo" />}tbalek
           </h1>
           {authStatus === ANONYMOUS && <SignIn />}
           {authStatus === SIGNED_IN && <SignOut />}

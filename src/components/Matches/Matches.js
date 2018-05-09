@@ -10,16 +10,16 @@ import {
   playersSelector,
   currentTournamentSelector
 } from '../../selectors'
-import { openModal } from '../../actions'
+import { openModal } from '../../actions/newMatch'
 import Loading from '../Loading/Loading'
 import Match from '../Match/Match'
 import NewMatch from '../NewMatch/NewMatch'
 import './Matches.css'
 
 const mapStateToProps = state => ({
-  matches: matchesSelector(state),
-  players: playersSelector(state),
-  currentTournament: currentTournamentSelector(state)
+  matches: matchesSelector(state.load),
+  players: playersSelector(state.load),
+  currentTournament: currentTournamentSelector(state.display)
 })
 
 const mapDispatchToProps = {

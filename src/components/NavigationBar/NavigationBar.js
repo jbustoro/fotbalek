@@ -16,11 +16,11 @@ import {
   setCurrentTournament,
   displayCurrentTournamentLeaderboard,
   displayCurrentTournamentMatches
-} from '../../actions'
+} from '../../actions/display'
 
 const mapStateToProps = state => ({
-  currentTournament: currentTournamentSelector(state),
-  navActiveKey: navActiveKeySelector(state)
+  currentTournament: currentTournamentSelector(state.display),
+  navActiveKey: navActiveKeySelector(state.display)
 })
 
 const mapDispatchToProps = {

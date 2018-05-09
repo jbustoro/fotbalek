@@ -8,7 +8,7 @@ import Tournament from '../Tournament/Tournament'
 import './Tournaments.css'
 
 const mapStateToProps = state => ({
-  tournaments: tournamentsSelector(state)
+  tournaments: tournamentsSelector(state.load)
 })
 
 class Tournaments extends Component {

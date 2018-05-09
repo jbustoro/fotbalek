@@ -7,7 +7,7 @@ import {
   loadPlayersData,
   loadTournamentsData,
   loadTeamsData
-} from '../../actions'
+} from '../../actions/load'
 
 const mapDispatchToProps = {
   loadMatchesData,

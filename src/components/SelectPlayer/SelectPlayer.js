@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { playersSelector } from '../../selectors'
 
 const mapStateToProps = state => ({
-  players: playersSelector(state)
+  players: playersSelector(state.load)
 })
 
 class SelectPlayer extends Component {

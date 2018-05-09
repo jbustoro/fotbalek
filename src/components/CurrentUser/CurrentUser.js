@@ -8,7 +8,7 @@ import { signedOut } from '../../actions/auth'
 import './CurrentUser.css'
 
 const mapStateToProps = state => ({
-  currentUser: currentUserSelector(state)
+  currentUser: currentUserSelector(state.auth)
 })
 
 const mapDispatchToProps = {

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import dateFormat from 'dateformat'
 import PropTypes from 'prop-types'
-import { setNavActiveKey, setCurrentTournament } from '../../actions'
+import { setNavActiveKey, setCurrentTournament } from '../../actions/display'
 import './Tournament.css'
 
 const mapDispatchToProps = {

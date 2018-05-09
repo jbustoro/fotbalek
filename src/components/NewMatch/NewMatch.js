@@ -13,15 +13,14 @@ import {
   TOURNAMENT
 } from '../../constants'
 import { modalOpenSelector, newMatchSelector } from '../../selectors'
-import { closeModal } from '../../actions'
-import { setNewMatch, addNewMatch } from '../../actions/newMatch'
+import { closeModal, setNewMatch, addNewMatch } from '../../actions/newMatch'
 import SelectPlayer from '../SelectPlayer/SelectPlayer'
 import SelectTournament from '../SelectTournament/SelectTournament'
 import './NewMatch.css'
 
 const mapStateToProps = state => ({
-  modalOpen: modalOpenSelector(state),
-  newMatch: newMatchSelector(state)
+  modalOpen: modalOpenSelector(state.newMatch),
+  newMatch: newMatchSelector(state.newMatch)
 })
 
 const mapDispatchToProps = {

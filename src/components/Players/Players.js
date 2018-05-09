@@ -9,7 +9,7 @@ import Player from '../Player/Player'
 import './Players.css'
 
 const mapStateToProps = state => ({
-  players: playersSelector(state)
+  players: playersSelector(state.load)
 })
 
 class Players extends Component {
