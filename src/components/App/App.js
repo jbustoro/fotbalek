@@ -20,6 +20,7 @@ import Matches from '../Matches/Matches'
 import Players from '../Players/Players'
 import Tournaments from '../Tournaments/Tournaments'
 import TournamentLeaderboard from '../TournamentLeaderboard/TournamentLeaderboard'
+import logo from '../../assets/fotbalek.png'
 import './App.css'
 
 const mapStateToProps = state => ({
@@ -35,7 +36,9 @@ class App extends Component {
       <div className="App">
         <FirebaseAuth />
         <header>
-          <h1 className="App-title">Fotbalek</h1>
+          <h1 className="App-title">
+            F<img className="App-logo" src={logo} alt="logo" />tbalek
+          </h1>
           {authStatus === ANONYMOUS && <SignIn />}
           {authStatus === SIGNED_IN && <SignOut />}
         </header>
