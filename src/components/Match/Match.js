@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import dateFormat from 'dateformat'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faArrowUp from '@fortawesome/fontawesome-free-solid/faArrowUp'
-import faArrowDown from '@fortawesome/fontawesome-free-solid/faArrowDown'
 import PropTypes from 'prop-types'
+import { setMatchGain } from './matchHelper'
 import './Match.css'
 
 class Match extends Component {
@@ -25,40 +23,16 @@ class Match extends Component {
         </div>
         <div className="Match-team">
           <p className="Match-player">{playerA0.name}</p>
-          <div className="Match-gain">
-            <FontAwesomeIcon
-              icon={playerA0.gain > 0 ? faArrowUp : faArrowDown}
-              style={playerA0.gain > 0 ? { color: 'green' } : { color: 'red' }}
-            />
-            {` ${Math.floor(playerA0.gain * 100)}`}
-          </div>
+          <div className="Match-gain">{setMatchGain(playerA0)}</div>
           <p className="Match-player">{playerA1.name}</p>
-          <div className="Match-gain">
-            <FontAwesomeIcon
-              icon={playerA1.gain > 0 ? faArrowUp : faArrowDown}
-              style={playerA1.gain > 0 ? { color: 'green' } : { color: 'red' }}
-            />
-            {` ${Math.floor(playerA1.gain * 100)}`}
-          </div>
+          <div className="Match-gain">{setMatchGain(playerA1)}</div>
         </div>
         <p className="Match-result">{`${resultA} - ${resultB}`}</p>
         <div className="Match-team">
           <p className="Match-player">{playerB0.name}</p>
-          <div className="Match-gain">
-            <FontAwesomeIcon
-              icon={playerB0.gain > 0 ? faArrowUp : faArrowDown}
-              style={playerB0.gain > 0 ? { color: 'green' } : { color: 'red' }}
-            />
-            {` ${Math.floor(playerB0.gain * 100)}`}
-          </div>
+          <div className="Match-gain">{setMatchGain(playerB0)}</div>
           <p className="Match-player">{playerB1.name}</p>
-          <div className="Match-gain">
-            <FontAwesomeIcon
-              icon={playerB1.gain > 0 ? faArrowUp : faArrowDown}
-              style={playerB1.gain > 0 ? { color: 'green' } : { color: 'red' }}
-            />
-            {` ${Math.floor(playerB1.gain * 100)}`}
-          </div>
+          <div className="Match-gain">{setMatchGain(playerB1)}</div>
         </div>
         {tournamentId && (
           <p className="Match-tournament">{`Tournament ID: ${tournamentId}`}</p>
@@ -75,7 +49,8 @@ Match.propTypes = {
   playerA1: PropTypes.object,
   playerB0: PropTypes.object,
   playerB1: PropTypes.object,
-  tournamentId: PropTypes.string
+  tournamentId: PropTypes.string,
+  setMatchGain: PropTypes.func
 }
 
 export default Match
