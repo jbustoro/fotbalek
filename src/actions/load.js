@@ -2,7 +2,8 @@ import {
   LOAD_MATCHES_DATA,
   LOAD_PLAYERS_DATA,
   LOAD_TOURNAMENTS_DATA,
-  LOAD_TEAMS_DATA
+  LOAD_TEAMS_DATA,
+  LOAD_SNAPSHOTS_DATA
 } from '../constants'
 
 export function loadMatchesData(payload) {
@@ -29,6 +30,13 @@ export function loadTournamentsData(payload) {
 export function loadTeamsData(payload) {
   return {
     type: LOAD_TEAMS_DATA,
+    payload
+  }
+}
+
+export function loadSnapshotsData(payload) {
+  return {
+    type: LOAD_SNAPSHOTS_DATA,
     payload
   }
 }

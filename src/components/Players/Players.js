@@ -1,28 +1,33 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import _ from 'lodash'
+import dateFormat from 'dateformat'
 import { Table } from 'react-bootstrap'
 import PropTypes from 'prop-types'
-import { playersSelector } from '../../selectors'
+import { playersSelector, snapshotsSelector } from '../../selectors'
 import Loading from '../Loading/Loading'
 import Player from '../Player/Player'
 import './Players.css'
 
 const mapStateToProps = state => ({
-  players: playersSelector(state.load)
+  players: playersSelector(state.load),
+  snapshots: snapshotsSelector(state.load)
 })
 
 class Players extends Component {
   render() {
-    const { players } = this.props
+    const { players, snapshots } = this.props
     const orderedPlayers = players.sortBy(player => player.order)
 
-    return _.isEmpty(players) ? (
+    const yesterday = new Date()
+    yesterday.setDate(yesterday.getDate() - 1)
+    const lastSnapshot = snapshots[dateFormat(yesterday, 'yyyy-m-d')]
+    //const lastSnapshot = snapshots['2018-4-9']
+
+    return players.size < 1 ? (
       <Loading />
     ) : (
       <div className="Players">
-        <h3 className="Players-title">Players</h3>
-        <Table striped bordered condensed hover>
+        <Table striped bordered condensed>
           <thead>
             <tr>
               <th>#</th>
@@ -30,12 +35,22 @@ class Players extends Component {
               <th>Rating</th>
               <th>W:L</th>
               <th>Gf/Ga</th>
+              <th>Diff</th>
             </tr>
           </thead>
           <tbody>
-            {orderedPlayers
-              .valueSeq()
-              .map((player, key) => <Player key={key} player={player} />)}
+            {orderedPlayers.entrySeq().map((player, key) => {
+              const [playerKey, playerData] = player
+              const snapshotRating = lastSnapshot && lastSnapshot[playerKey]
+
+              return (
+                <Player
+                  key={key}
+                  player={playerData}
+                  snapshotRating={snapshotRating}
+                />
+              )
+            })}
           </tbody>
         </Table>
       </div>
@@ -44,7 +59,8 @@ class Players extends Component {
 }
 
 Players.propTypes = {
-  players: PropTypes.object
+  players: PropTypes.object,
+  snapshots: PropTypes.object
 }
 
 export default connect(mapStateToProps)(Players)
