@@ -39,14 +39,14 @@ class Players extends Component {
             </tr>
           </thead>
           <tbody>
-            {orderedPlayers.entrySeq().map((player, key) => {
-              const [playerKey, playerData] = player
-              const snapshotRating = lastSnapshot && lastSnapshot[playerKey]
+            {orderedPlayers.entrySeq().map((playerData, key) => {
+              const [playerId, player] = playerData
+              const snapshotRating = lastSnapshot && lastSnapshot[playerId]
 
               return (
                 <Player
                   key={key}
-                  player={playerData}
+                  player={player}
                   snapshotRating={snapshotRating}
                 />
               )
