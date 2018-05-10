@@ -8,6 +8,10 @@
   border-bottom: 1px solid #ccc;
 }
 
+.Match:nth-child(odd) {
+  background-color: #dddddd;
+}
+
 .Match-date {
   margin: 1em;
   flex-basis: 100%;
@@ -33,9 +37,18 @@
 
 .Match-result {
   margin-top: 3em;
+  font-size: large;
 }
 
 .Match-tournament {
   margin: 1em;
   flex-basis: 100%;
+}
+
+.Match-gain-win {
+  color: #2ecc40;
+}
+
+.Match-gain-loss {
+  color: #ff4136;
 }

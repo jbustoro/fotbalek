@@ -1,20 +1,27 @@
 import React, { Component } from 'react'
 import dateFormat from 'dateformat'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faArrowUp from '@fortawesome/fontawesome-free-solid/faArrowUp'
-import faArrowDown from '@fortawesome/fontawesome-free-solid/faArrowDown'
+import { ARROW_UP, ARROW_DOWN } from '../../constants'
 import PropTypes from 'prop-types'
 import './Match.css'
 
-const setMatchGain = player => (
-  <div>
-    <FontAwesomeIcon
-      icon={player.gain > 0 ? faArrowUp : faArrowDown}
-      style={player.gain > 0 ? { color: '#2ECC40' } : { color: '#FF4136' }}
-    />
-    {` ${Math.floor(player.gain * 100)}`}
-  </div>
-)
+const matchGain = player => {
+  let icon, className
+
+  if (player.gain > 0) {
+    icon = ARROW_UP
+    className = 'Match-gain-win'
+  } else if (player.gain < 0) {
+    icon = ARROW_DOWN
+    className = 'Match-gain-loss'
+  }
+
+  return (
+    <div>
+      <span className={className}>{icon}</span>{' '}
+      {` ${Math.floor(player.gain * 100)}`}
+    </div>
+  )
+}
 
 class Match extends Component {
   render() {
@@ -35,16 +42,16 @@ class Match extends Component {
         </div>
         <div className="Match-team">
           <p className="Match-player">{playerA0.name}</p>
-          <div className="Match-gain">{setMatchGain(playerA0)}</div>
+          <div className="Match-gain">{matchGain(playerA0)}</div>
           <p className="Match-player">{playerA1.name}</p>
-          <div className="Match-gain">{setMatchGain(playerA1)}</div>
+          <div className="Match-gain">{matchGain(playerA1)}</div>
         </div>
         <p className="Match-result">{`${resultA} - ${resultB}`}</p>
         <div className="Match-team">
           <p className="Match-player">{playerB0.name}</p>
-          <div className="Match-gain">{setMatchGain(playerB0)}</div>
+          <div className="Match-gain">{matchGain(playerB0)}</div>
           <p className="Match-player">{playerB1.name}</p>
-          <div className="Match-gain">{setMatchGain(playerB1)}</div>
+          <div className="Match-gain">{matchGain(playerB1)}</div>
         </div>
         {tournamentId && (
           <p className="Match-tournament">{`Tournament ID: ${tournamentId}`}</p>
@@ -62,7 +69,7 @@ Match.propTypes = {
   playerB0: PropTypes.object,
   playerB1: PropTypes.object,
   tournamentId: PropTypes.string,
-  setMatchGain: PropTypes.func
+  matchGain: PropTypes.func
 }
 
 export default Match
