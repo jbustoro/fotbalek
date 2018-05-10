@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import _ from 'lodash'
 import PropTypes from 'prop-types'
 import { tournamentsSelector } from '../../selectors'
 import Loading from '../Loading/Loading'
@@ -14,14 +13,25 @@ const mapStateToProps = state => ({
 class Tournaments extends Component {
   render() {
     const { tournaments } = this.props
+    const orderedTournaments = tournaments
+      .sortBy(tournament => tournament.createdAt)
+      .reverse()
 
-    return _.isEmpty(tournaments) ? (
+    return orderedTournaments.size < 1 ? (
       <Loading />
     ) : (
       <div className="Tournaments">
-        {_.map(tournaments, (tournament, key) => (
-          <Tournament key={key} tournamentId={key} tournament={tournament} />
-        ))}
+        {orderedTournaments.entrySeq().map((tournamentData, key) => {
+          const [tournamentId, tournament] = tournamentData
+
+          return (
+            <Tournament
+              key={key}
+              tournamentId={tournamentId}
+              tournament={tournament}
+            />
+          )
+        })}
       </div>
     )
   }

@@ -10,7 +10,7 @@ import {
 const initialState = Record({
   matches: Map({}),
   players: Map({}),
-  tournaments: {},
+  tournaments: Map({}),
   teams: Map({}),
   snapshots: {}
 })
@@ -24,7 +24,7 @@ export default function load(state = defaultState, action) {
     case LOAD_PLAYERS_DATA:
       return state.set('players', Map(action.payload))
     case LOAD_TOURNAMENTS_DATA:
-      return state.set('tournaments', action.payload)
+      return state.set('tournaments', Map(action.payload))
     case LOAD_TEAMS_DATA:
       return state.set('teams', Map(action.payload))
     case LOAD_SNAPSHOTS_DATA:
