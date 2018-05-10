@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import _ from 'lodash'
 import { Button } from 'react-bootstrap'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faPlus from '@fortawesome/fontawesome-free-solid/faPlus'
@@ -33,13 +32,12 @@ class Matches extends Component {
 
   render() {
     const { matches, players, currentTournament } = this.props
+    const orderedMatches = matches.sortBy(match => match.playedAt).reverse()
     const matchesToMap = !currentTournament
-      ? matches
-      : _.filter(matches, {
-          tournamentId: currentTournament
-        })
+      ? orderedMatches
+      : orderedMatches.filter(match => match.tournamentId === currentTournament)
 
-    return _.isEmpty(matchesToMap) ? (
+    return matchesToMap.size < 1 ? (
       <div>
         <Loading />
         <button className="Add-Match" onClick={() => this.handleClick()}>
@@ -49,8 +47,7 @@ class Matches extends Component {
       </div>
     ) : (
       <div className="Matches">
-        <h3 className="Matches-title">Matches</h3>
-        {_.map(matchesToMap, (match, key) => {
+        {matchesToMap.valueSeq().map((match, key) => {
           const {
             playedAt,
             result,
