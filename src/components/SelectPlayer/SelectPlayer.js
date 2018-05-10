@@ -14,7 +14,9 @@ class SelectPlayer extends Component {
 
     return (
       <FormControl componentClass="select" onChange={onChange}>
-        <option>Select Player</option>
+        <option selected disabled>
+          Select Player
+        </option>
         {players.entrySeq().map((playerData, key) => {
           const [playerId, player] = playerData
 
