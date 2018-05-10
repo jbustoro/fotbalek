@@ -17,6 +17,7 @@ import {
   displayCurrentTournamentLeaderboard,
   displayCurrentTournamentMatches
 } from '../../actions/display'
+import './NavigationBar.css'
 
 const mapStateToProps = state => ({
   currentTournament: currentTournamentSelector(state.display),

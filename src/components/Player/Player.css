@@ -6,3 +6,15 @@
 .Player li {
   list-style-type: none;
 }
+
+.Player-rating-win {
+  color: #2ecc40;
+}
+
+.Player-rating-loss {
+  color: #ff4136;
+}
+
+.Player-rating-equal {
+  color: #111111;
+}
