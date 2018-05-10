@@ -27,7 +27,6 @@ class TournamentLeaderboard extends Component {
 
     return (
       <div className="Tournament-leaderboard">
-        <h3 className="Tournament-leaderboard-title">Leaderboard</h3>
         <Table striped bordered condensed>
           <thead>
             <tr>

@@ -19,7 +19,6 @@ class Tournaments extends Component {
       <Loading />
     ) : (
       <div className="Tournaments">
-        <h3 className="Tournaments-title">Tournaments</h3>
         {_.map(tournaments, (tournament, key) => (
           <Tournament key={key} tournamentId={key} tournament={tournament} />
         ))}
