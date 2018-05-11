@@ -29,6 +29,7 @@ const mapStateToProps = state => ({
 })
 
 class App extends Component {
+  /*eslint-disable indent*/
   render() {
     const { authStatus, currentItem } = this.props
 
@@ -37,7 +38,7 @@ class App extends Component {
         <FirebaseAuth />
         <header>
           <h1 className="App-title">
-            F{<img className="App-logo" src={logo} alt="logo" />}tbalek
+            F<img className="App-logo" src={logo} alt="logo" />tbalek
           </h1>
           {authStatus === ANONYMOUS && <SignIn />}
           {authStatus === SIGNED_IN && <SignOut />}
@@ -64,6 +65,7 @@ class App extends Component {
       </div>
     )
   }
+  /*eslint-enable indent*/
 }
 
 App.propTypes = {

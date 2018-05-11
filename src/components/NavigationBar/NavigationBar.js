@@ -35,6 +35,7 @@ const mapDispatchToProps = {
 }
 
 class NavigationBar extends Component {
+  /*eslint-disable react/prop-types*/
   handleSelect(selectedKey) {
     this.props.setNavActiveKey(selectedKey)
   }
@@ -89,6 +90,7 @@ class NavigationBar extends Component {
       </Navbar>
     )
   }
+  /*eslint-enable react/prop-types*/
 }
 
 Navbar.propTypes = {
