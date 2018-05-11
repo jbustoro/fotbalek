@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Modal from 'react-responsive-modal'
 import { Button } from 'react-bootstrap'
-import swal from 'sweetalert'
 import PropTypes from 'prop-types'
 import {
   TEAM_A,
@@ -16,6 +15,7 @@ import { modalOpenSelector, newMatchSelector } from '../../selectors'
 import { closeModal, setNewMatch, addNewMatch } from '../../actions/newMatch'
 import SelectPlayer from '../SelectPlayer/SelectPlayer'
 import SelectTournament from '../SelectTournament/SelectTournament'
+import { validateNewMatch } from './newMatchHelpers'
 import './NewMatch.css'
 
 const mapStateToProps = state => ({
@@ -32,32 +32,9 @@ const mapDispatchToProps = {
 class NewMatch extends Component {
   handleSubmit(event) {
     event.preventDefault()
-
     const { newMatch } = this.props
-    const { playerA0, playerA1, playerB0, playerB1, scoreA, scoreB } = newMatch
 
-    if (
-      ![playerA0, playerA1, playerB0, playerB1, scoreA, scoreB].every(
-        value => value
-      )
-    ) {
-      return swal('Oops!', 'Empty data!', 'warning')
-    } else if (scoreA < 0 || scoreB < 0 || scoreA > 10 || scoreB > 10) {
-      return swal('Oops!', 'Score must be between 0 - 10!', 'warning')
-    }
-
-    const players = [playerA0, playerA1, playerB0, playerB1]
-
-    players.forEach((player, i) => {
-      if (players.indexOf(player) !== i) {
-        return swal('Oops!', 'Duplicate player!', 'warning')
-      }
-    })
-
-    this.props.addNewMatch(this.props.newMatch)
-    this.props.closeModal()
-
-    return swal('Success', 'Match added!', 'success')
+    validateNewMatch(newMatch, this.props.addNewMatch, this.props.closeModal)
   }
 
   render() {
@@ -183,7 +160,8 @@ class NewMatch extends Component {
             <br />
             <Button bsStyle="primary" type="submit">
               Save
-            </Button>{' '}
+            </Button>
+            {` `}
             <Button onClick={() => this.props.closeModal()}>Cancel</Button>
           </form>
         </Modal>
