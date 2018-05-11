@@ -25,7 +25,7 @@ class SelectTournament extends Component {
             <option key={key} value={tournamentId}>
               {dateFormat(
                 tournament.createdAt,
-                'dddd, mmmm dS, yyyy, h:MM:ss TT'
+                `dddd, mmmm dS, yyyy, h:MM:ss TT`
               )}
             </option>
           )

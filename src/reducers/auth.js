@@ -16,13 +16,13 @@ const defaultState = new initialState()
 export default function auth(state = defaultState, action) {
   switch (action.type) {
     case ATTEMPTING_LOGIN:
-      return state.set('authStatus', ATTEMPTING_LOGIN)
+      return state.set(`authStatus`, ATTEMPTING_LOGIN)
     case SIGNED_IN:
       return state
-        .set('authStatus', SIGNED_IN)
-        .set('currentUser', action.payload)
+        .set(`authStatus`, SIGNED_IN)
+        .set(`currentUser`, action.payload)
     case SIGNED_OUT:
-      return state.set('authStatus', ANONYMOUS).set('currentUser', null)
+      return state.set(`authStatus`, ANONYMOUS).set(`currentUser`, null)
     default:
       return state
   }

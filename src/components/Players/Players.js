@@ -20,7 +20,7 @@ class Players extends Component {
 
     const yesterday = new Date()
     yesterday.setDate(yesterday.getDate() - 1)
-    const lastSnapshot = snapshots[dateFormat(yesterday, 'yyyy-m-d')]
+    const lastSnapshot = snapshots[dateFormat(yesterday, `yyyy-m-d`)]
     //const lastSnapshot = snapshots['2018-4-9']
 
     return players.size < 1 ? (

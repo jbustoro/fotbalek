@@ -18,11 +18,11 @@ const mapDispatchToProps = {
   loadSnapshotsData
 }
 
-const matchesRef = firestore.collection('matches').limit(100)
-const playersRef = firestore.collection('players').limit(100)
-const tournamentsRef = firestore.collection('tournaments').limit(100)
-const teamsRef = firestore.collection('teams').limit(100)
-const snapshotsRef = firestore.collection('snapshots').limit(100)
+const matchesRef = firestore.collection(`matches`).limit(100)
+const playersRef = firestore.collection(`players`).limit(100)
+const tournamentsRef = firestore.collection(`tournaments`).limit(100)
+const teamsRef = firestore.collection(`teams`).limit(100)
+const snapshotsRef = firestore.collection(`snapshots`).limit(100)
 
 const matches = {}
 const players = {}
@@ -31,7 +31,7 @@ const teams = {}
 const snapshots = {}
 
 export const saveNewMatchIntoFirestore = match => {
-  firestore.collection('matches').add(match)
+  firestore.collection(`matches`).add(match)
 }
 
 class FirebaseData extends Component {

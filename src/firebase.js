@@ -2,11 +2,11 @@ import firebase from 'firebase'
 import '@firebase/firestore'
 
 const config = {
-  apiKey: 'AIzaSyA3Tx6BAzbe6jzOPee3hqQn_6ovfCHHaE8',
-  authDomain: 'fotbalek-test.firebaseapp.com',
-  databaseURL: 'https://fotbalek-test.firebaseio.com',
-  projectId: 'fotbalek-test',
-  storageBucket: 'fotbalek-test.appspot.com',
+  apiKey: `AIzaSyA3Tx6BAzbe6jzOPee3hqQn_6ovfCHHaE8`,
+  authDomain: `fotbalek-test.firebaseapp.com`,
+  databaseURL: `https://fotbalek-test.firebaseio.com`,
+  projectId: `fotbalek-test`,
+  storageBucket: `fotbalek-test.appspot.com`,
   timestampsInSnapshots: true
 }
 

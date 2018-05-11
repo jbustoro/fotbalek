@@ -25,9 +25,9 @@ class Tournament extends Component {
         onClick={() => this.handleClick(tournamentId)}
       >
         <p className="Tournament-date">
-          {dateFormat(tournament.createdAt, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}
+          {dateFormat(tournament.createdAt, `dddd, mmmm dS, yyyy, h:MM:ss TT`)}
         </p>
-        <p className="Tournament-active">{tournament.active && 'Active'}</p>
+        <p className="Tournament-active">{tournament.active && `Active`}</p>
       </div>
     )
   }

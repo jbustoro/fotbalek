@@ -163,6 +163,10 @@
     "no-whitespace-before-property": [
       "error"
     ],
+    "quotes": [
+        "warn",
+        "backtick"
+    ],
     "space-in-parens": [
       "warn"
     ],
