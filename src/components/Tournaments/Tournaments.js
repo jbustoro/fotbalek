@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { tournamentsSelector } from '../../selectors'
 import Loading from '../Loading/Loading'
 import Tournament from '../Tournament/Tournament'
+import { getTournamentsSortedByDate } from './tournamentsHelpers'
 import './Tournaments.css'
 
 const mapStateToProps = state => ({
@@ -13,9 +14,7 @@ const mapStateToProps = state => ({
 class Tournaments extends Component {
   render() {
     const { tournaments } = this.props
-    const orderedTournaments = tournaments
-      .sortBy(tournament => tournament.createdAt)
-      .reverse()
+    const orderedTournaments = getTournamentsSortedByDate(tournaments)
 
     return orderedTournaments.size < 1 ? (
       <Loading />
