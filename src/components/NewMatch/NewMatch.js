@@ -3,20 +3,19 @@ import { connect } from 'react-redux'
 import Modal from 'react-responsive-modal'
 import { Button } from 'react-bootstrap'
 import PropTypes from 'prop-types'
-import {
-  TEAM_A,
-  TEAM_B,
-  PLAYER_0,
-  PLAYER_1,
-  SCORE,
-  TOURNAMENT
-} from '../../constants'
+import { PLAYERS } from '../../constants'
 import { modalOpenSelector, newMatchSelector } from '../../selectors'
 import { closeModal, setNewMatch, addNewMatch } from '../../actions/newMatch'
-import SelectPlayer from '../SelectPlayer/SelectPlayer'
-import SelectTournament from '../SelectTournament/SelectTournament'
+import Select from '../Select/Select'
 import { validateNewMatch } from './newMatchHelpers'
 import './NewMatch.css'
+
+const TEAM_A = `TEAM_A`
+const TEAM_B = `TEAM_B`
+const PLAYER_0 = `PLAYER_0`
+const PLAYER_1 = `PLAYER_1`
+const SCORE = `SCORE`
+const TOURNAMENT = `TOURNAMENT`
 
 const mapStateToProps = state => ({
   modalOpen: modalOpenSelector(state.newMatch),
@@ -33,7 +32,6 @@ class NewMatch extends Component {
   handleSubmit(event) {
     event.preventDefault()
     const { newMatch } = this.props
-
     validateNewMatch(newMatch, this.props.addNewMatch, this.props.closeModal)
   }
 
@@ -49,7 +47,8 @@ class NewMatch extends Component {
             <div className="New-match-players">
               <h3>Players</h3>
               <h4>Team 1</h4>
-              <SelectPlayer
+              <Select
+                dataType={PLAYERS}
                 onChange={event => {
                   this.props.setNewMatch(
                     TEAM_A,
@@ -62,7 +61,8 @@ class NewMatch extends Component {
                   )
                 }}
               />
-              <SelectPlayer
+              <Select
+                dataType={PLAYERS}
                 onChange={event =>
                   this.props.setNewMatch(
                     TEAM_A,
@@ -76,7 +76,8 @@ class NewMatch extends Component {
                 }
               />
               <h4>Team 2</h4>
-              <SelectPlayer
+              <Select
+                dataType={PLAYERS}
                 onChange={event =>
                   this.props.setNewMatch(
                     null,
@@ -89,7 +90,8 @@ class NewMatch extends Component {
                   )
                 }
               />
-              <SelectPlayer
+              <Select
+                dataType={PLAYERS}
                 onChange={event =>
                   this.props.setNewMatch(
                     null,
@@ -143,7 +145,7 @@ class NewMatch extends Component {
             </div>
             <div className="New-match-tournament">
               <h3>Tournament</h3>
-              <SelectTournament
+              <Select
                 onChange={event =>
                   this.props.setNewMatch(
                     null,
