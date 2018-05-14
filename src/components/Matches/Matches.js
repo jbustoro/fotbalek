@@ -13,6 +13,7 @@ import { openModal } from '../../actions/newMatch'
 import Loading from '../Loading/Loading'
 import Match from '../Match/Match'
 import NewMatch from '../NewMatch/NewMatch'
+import { getMatchesSortedByDate, getMatchesToMap } from './matchesHelpers'
 import './Matches.css'
 
 const mapStateToProps = state => ({
@@ -32,10 +33,10 @@ class Matches extends Component {
 
   render() {
     const { matches, players, currentTournament } = this.props
-    const orderedMatches = matches.sortBy(match => match.playedAt).reverse()
-    const matchesToMap = !currentTournament
-      ? orderedMatches
-      : orderedMatches.filter(match => match.tournamentId === currentTournament)
+    const matchesToMap = getMatchesToMap(
+      getMatchesSortedByDate(matches),
+      currentTournament
+    )
 
     return matchesToMap.size < 1 ? (
       <div>
