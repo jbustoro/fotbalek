@@ -1,4 +1,4 @@
-import dateFormat from 'dateformat'
+import moment from 'moment'
 
 export function getPlayerGFGA(goalsFor, goalsAgainst) {
   return goalsFor === 0 && goalsAgainst === 0
@@ -7,5 +7,5 @@ export function getPlayerGFGA(goalsFor, goalsAgainst) {
 }
 
 export function getFormatedDate(date) {
-  return dateFormat(date, `dddd, mmmm dS, yyyy, h:MM:ss TT`)
+  return moment(date).format(`MMMM Do YYYY, h:mm:ss a`)
 }

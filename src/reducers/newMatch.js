@@ -1,5 +1,5 @@
 import { Record } from 'immutable'
-import dateFormat from 'dateformat'
+import moment from 'moment'
 import { OPEN_MODAL, CLOSE_MODAL, SET_NEW_MATCH } from '../constants'
 
 const initialState = Record({
@@ -61,7 +61,7 @@ export default function newMatch(state = defaultState, action) {
       }
 
       const newMatchObj = {
-        playedAt: dateFormat(new Date(), `isoDateTime`),
+        playedAt: moment().format(),
         scoreA:
           scoreA !== null && scoreA !== undefined
             ? scoreA

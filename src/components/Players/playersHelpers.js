@@ -1,17 +1,13 @@
-import dateFormat from 'dateformat'
-
-function getFormatedDate(date) {
-  return dateFormat(date, `yyyy-m-d`)
-}
+import moment from 'moment'
 
 function getYesterdaysDate() {
-  const yesterday = new Date()
-
-  return yesterday.setDate(yesterday.getDate() - 1)
+  return moment()
+    .subtract(1, `day`)
+    .format(`YYYY-M-D`)
 }
 
 export function getLastSnapshot(snapshots) {
-  return snapshots[getFormatedDate(getYesterdaysDate())]
+  return snapshots[getYesterdaysDate()]
 }
 
 export function getPLayersSortedByOrder(players) {
