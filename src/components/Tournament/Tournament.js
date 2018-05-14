@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import dateFormat from 'dateformat'
 import PropTypes from 'prop-types'
 import { setNavActiveKey, setCurrentTournament } from '../../actions/display'
+import { getFormatedDate } from '../utils/commonHelpers'
+import { getTournamentActive } from './tournamentHelpers'
 import './Tournament.css'
 
 const mapDispatchToProps = {
@@ -25,9 +26,11 @@ class Tournament extends Component {
         onClick={() => this.handleClick(tournamentId)}
       >
         <p className="Tournament-date">
-          {dateFormat(tournament.createdAt, `dddd, mmmm dS, yyyy, h:MM:ss TT`)}
+          {getFormatedDate(tournament.createdAt)}
         </p>
-        <p className="Tournament-active">{tournament.active && `Active`}</p>
+        <p className="Tournament-active">
+          {getTournamentActive(tournament.active)}
+        </p>
       </div>
     )
   }
