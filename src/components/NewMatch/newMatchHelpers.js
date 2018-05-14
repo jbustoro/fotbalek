@@ -8,7 +8,7 @@ const SUCCESS_ICON = `success`
 const EMPTY_DATA = `Empty data!`
 const WRONG_SCORE = `Score must be between 0 and 10!`
 const DUPLICATE_PLAYER = `Duplicate player!`
-const MATCH_ADDED = `Match added`
+const MATCH_ADDED = `Match added!`
 
 function isEmpty(newMatch) {
   return newMatch.includes(null)

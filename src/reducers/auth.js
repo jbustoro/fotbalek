@@ -2,6 +2,7 @@ import { Record } from 'immutable'
 import {
   ANONYMOUS,
   ATTEMPTING_LOGIN,
+  AUTH_POPUP_CLOSED,
   SIGNED_IN,
   SIGNED_OUT
 } from '../constants'
@@ -17,6 +18,8 @@ export default function auth(state = defaultState, action) {
   switch (action.type) {
     case ATTEMPTING_LOGIN:
       return state.set(`authStatus`, ATTEMPTING_LOGIN)
+    case AUTH_POPUP_CLOSED:
+      return state.set(`authStatus`, ANONYMOUS)
     case SIGNED_IN:
       return state
         .set(`authStatus`, SIGNED_IN)

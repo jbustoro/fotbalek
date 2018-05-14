@@ -3,17 +3,24 @@ import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import { auth, googleAuthProvider } from '../../firebase'
-import { attemptingLogin } from '../../actions/auth'
+import { attemptingLogin, authPopupClosed } from '../../actions/auth'
 import './SignIn.css'
 
+const AUTH_POPUP_CLOSED_BY_USER = `auth/popup-closed-by-user`
+
 const mapDispatchToProps = {
-  attemptingLogin
+  attemptingLogin,
+  authPopupClosed
 }
 
 class SignIn extends Component {
   handleClick() {
     this.props.attemptingLogin()
-    auth.signInWithPopup(googleAuthProvider)
+    auth.signInWithPopup(googleAuthProvider).catch(error => {
+      if (error.code === AUTH_POPUP_CLOSED_BY_USER) {
+        this.props.authPopupClosed()
+      }
+    })
   }
 
   render() {
@@ -28,7 +35,8 @@ class SignIn extends Component {
 }
 
 SignIn.propTypes = {
-  attemptingLogin: PropTypes.func
+  attemptingLogin: PropTypes.func,
+  authPopupClosed: PropTypes.func
 }
 
 export default connect(null, mapDispatchToProps)(SignIn)
