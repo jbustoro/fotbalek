@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import {
   getPlayerOrder,
   getPlayerRatingDom,
-  getPlayerGFGA,
   getPlayerDiff
 } from './playerHelpers'
+import { getPlayerGFGA } from '../utils/commonHelpers'
 import './Player.css'
 
 class Player extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import dateFormat from 'dateformat'
 import PropTypes from 'prop-types'
 import { getMatchGainDom } from './matchHelpers.js'
+import { getFormatedDate } from '../utils/commonHelpers'
 import './Match.css'
 
 class Match extends Component {
@@ -18,9 +18,7 @@ class Match extends Component {
 
     return (
       <div className="Match">
-        <div className="Match-date">
-          {dateFormat(playedAt, `dddd, mmmm dS, yyyy, h:MM:ss TT`)}
-        </div>
+        <div className="Match-date">{getFormatedDate(playedAt)}</div>
         <div className="Match-team">
           <p className="Match-player">{playerA0.name}</p>
           <div className="Match-gain">{getMatchGainDom(playerA0)}</div>

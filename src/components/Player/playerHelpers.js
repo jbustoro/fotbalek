@@ -37,12 +37,6 @@ export function getPlayerRatingDom(snapshotRating, playerRatingData) {
   )
 }
 
-export function getPlayerGFGA(goalsFor, goalsAgainst) {
-  return goalsFor === 0 && goalsAgainst === 0
-    ? (0).toFixed(2)
-    : (goalsFor / goalsAgainst).toFixed(2)
-}
-
 export function getPlayerDiff(snapshotRating) {
   if (snapshotRating) {
     if (snapshotRating > 0) {
