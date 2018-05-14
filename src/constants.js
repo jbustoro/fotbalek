@@ -23,4 +23,5 @@ export const SET_NAV_ACTIVE_KEY = `SET_NAV_ACTIVE_KEY`
 export const ARROW_UP = `↑`
 export const ARROW_DOWN = `↓`
 export const BLACK_CIRCLE = `●`
+export const PLUS = `+`
 export const PLAYERS = `PLAYERS`
