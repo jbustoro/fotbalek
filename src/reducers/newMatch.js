@@ -7,7 +7,7 @@ const initialState = Record({
   newMatch: {
     playedAt: null,
     scoreA: 10,
-    scoreB: '',
+    scoreB: ``,
     playerA0: null,
     playerA1: null,
     playerB0: null,
@@ -21,19 +21,19 @@ const defaultState = new initialState()
 export default function newMatch(state = defaultState, action) {
   switch (action.type) {
     case OPEN_MODAL:
-      return state.set('modalOpen', true)
+      return state.set(`modalOpen`, true)
     case CLOSE_MODAL: {
       const clearNewMatch = {
         playedAt: null,
         scoreA: 10,
-        scoreB: '',
+        scoreB: ``,
         playerA0: null,
         playerA1: null,
         playerB0: null,
         playerB1: null,
         tournamentId: null
       }
-      return state.set('modalOpen', false).set('newMatch', clearNewMatch)
+      return state.set(`modalOpen`, false).set(`newMatch`, clearNewMatch)
     }
     case SET_NEW_MATCH: {
       let playerA0, playerA1, playerB0, playerB1, scoreA, scoreB, tournamentId
@@ -61,7 +61,7 @@ export default function newMatch(state = defaultState, action) {
       }
 
       const newMatchObj = {
-        playedAt: dateFormat(new Date(), 'isoDateTime'),
+        playedAt: dateFormat(new Date(), `isoDateTime`),
         scoreA:
           scoreA !== null && scoreA !== undefined
             ? scoreA
@@ -77,7 +77,7 @@ export default function newMatch(state = defaultState, action) {
         tournamentId: tournamentId ? tournamentId : state.newMatch.tournamentId
       }
 
-      return state.set('newMatch', newMatchObj)
+      return state.set(`newMatch`, newMatchObj)
     }
     default:
       return state
