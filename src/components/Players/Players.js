@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import dateFormat from 'dateformat'
 import { Table } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import { playersSelector, snapshotsSelector } from '../../selectors'
 import Loading from '../Loading/Loading'
 import Player from '../Player/Player'
+import {
+  getPLayersSortedByOrder,
+  getLastSnapshot,
+  getSnapshotRating
+} from './playersHelpers'
 import './Players.css'
 
 const mapStateToProps = state => ({
@@ -16,14 +20,10 @@ const mapStateToProps = state => ({
 class Players extends Component {
   render() {
     const { players, snapshots } = this.props
-    const orderedPlayers = players.sortBy(player => player.order)
+    const orderedPlayers = getPLayersSortedByOrder(players)
+    const lastSnapshot = getLastSnapshot(snapshots)
 
-    const yesterday = new Date()
-    yesterday.setDate(yesterday.getDate() - 1)
-    const lastSnapshot = snapshots[dateFormat(yesterday, `yyyy-m-d`)]
-    //const lastSnapshot = snapshots['2018-4-9']
-
-    return players.size < 1 ? (
+    return orderedPlayers.size < 1 ? (
       <Loading />
     ) : (
       <div className="Players">
@@ -41,13 +41,12 @@ class Players extends Component {
           <tbody>
             {orderedPlayers.entrySeq().map((playerData, key) => {
               const [playerId, player] = playerData
-              const snapshotRating = lastSnapshot && lastSnapshot[playerId]
 
               return (
                 <Player
                   key={key}
                   player={player}
-                  snapshotRating={snapshotRating}
+                  snapshotRating={getSnapshotRating(lastSnapshot, playerId)}
                 />
               )
             })}
