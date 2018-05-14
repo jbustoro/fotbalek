@@ -1,11 +1,14 @@
 import _ from 'lodash'
 import swal from 'sweetalert'
 
-const TITLE = `Oops!`
-const ICON = `warning`
+const ERROR_TITLE = `Oops!`
+const SUCCESS_TITLE = `Success`
+const WARNING_ICON = `warning`
+const SUCCESS_ICON = `success`
 const EMPTY_DATA = `Empty data!`
 const WRONG_SCORE = `Score must be between 0 and 10!`
 const DUPLICATE_PLAYER = `Duplicate player!`
+const MATCH_ADDED = `Match added`
 
 function isEmpty(newMatch) {
   return newMatch.includes(null)
@@ -24,15 +27,15 @@ export function validateNewMatch(newMatch, addNewMatch, closeModal) {
   const players = [playerA0, playerA1, playerB0, playerB1]
 
   if (isEmpty([...players, scoreA, scoreB])) {
-    return swal(TITLE, EMPTY_DATA, ICON)
+    return swal(ERROR_TITLE, EMPTY_DATA, WARNING_ICON)
   } else if (isWrongScore(scoreA, scoreB)) {
-    return swal(TITLE, WRONG_SCORE, ICON)
+    return swal(ERROR_TITLE, WRONG_SCORE, WARNING_ICON)
   } else if (isDuplicatePlayer(players)) {
-    return swal(TITLE, DUPLICATE_PLAYER, ICON)
+    return swal(ERROR_TITLE, DUPLICATE_PLAYER, WARNING_ICON)
   }
 
   addNewMatch(newMatch)
   closeModal()
 
-  return swal(`Success`, `Match added!`, `success`)
+  return swal(SUCCESS_TITLE, MATCH_ADDED, SUCCESS_ICON)
 }
