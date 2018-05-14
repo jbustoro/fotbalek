@@ -6,7 +6,7 @@ import { playersSelector, snapshotsSelector } from '../../selectors'
 import Loading from '../Loading/Loading'
 import Player from '../Player/Player'
 import {
-  getPLayersSortedByOrder,
+  getPlayersSortedByOrder,
   getLastSnapshot,
   getSnapshotRating
 } from './playersHelpers'
@@ -20,7 +20,7 @@ const mapStateToProps = state => ({
 class Players extends Component {
   render() {
     const { players, snapshots } = this.props
-    const orderedPlayers = getPLayersSortedByOrder(players)
+    const orderedPlayers = getPlayersSortedByOrder(players)
     const lastSnapshot = getLastSnapshot(snapshots)
 
     return orderedPlayers.size < 1 ? (

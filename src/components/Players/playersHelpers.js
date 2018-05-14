@@ -10,7 +10,7 @@ export function getLastSnapshot(snapshots) {
   return snapshots[getYesterdaysDate()]
 }
 
-export function getPLayersSortedByOrder(players) {
+export function getPlayersSortedByOrder(players) {
   return players.sortBy(player => player.order)
 }
 
