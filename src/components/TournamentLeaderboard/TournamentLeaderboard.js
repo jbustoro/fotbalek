@@ -7,6 +7,11 @@ import {
   teamsSelector,
   playersSelector
 } from '../../selectors'
+import {
+  getTeamsSortedByWins,
+  getCurrentTournamentTeams
+} from './tournamentLeaderboardHelpers'
+import { getPlayerGFGA } from '../utils/commonHelpers'
 import './TournamentLeaderboard.css'
 
 const mapStateToProps = state => ({
@@ -18,12 +23,9 @@ const mapStateToProps = state => ({
 class TournamentLeaderboard extends Component {
   render() {
     const { currentTournament, teams, players } = this.props
-    const currentTournamentTeams = teams.filter(
-      team => team.tournamentId === currentTournament
+    const orderedTeams = getTeamsSortedByWins(
+      getCurrentTournamentTeams(teams, currentTournament)
     )
-    const orderedTeams = currentTournamentTeams
-      .sortBy(team => team.wins)
-      .reverse()
 
     return (
       <div className="Tournament-leaderboard">
@@ -39,8 +41,8 @@ class TournamentLeaderboard extends Component {
           <tbody>
             {orderedTeams.valueSeq().map((team, key) => {
               const {
-                goalsAgainst,
                 goalsFor,
+                goalsAgainst,
                 wins,
                 loses,
                 players: [player0, player1]
@@ -55,7 +57,7 @@ class TournamentLeaderboard extends Component {
                     {players.get(player1).name}
                   </td>
                   <td>{`${wins}:${loses}`}</td>
-                  <td>{(goalsFor / goalsAgainst).toFixed(2)}</td>
+                  <td>{getPlayerGFGA(goalsFor, goalsAgainst)}</td>
                 </tr>
               )
             })}
