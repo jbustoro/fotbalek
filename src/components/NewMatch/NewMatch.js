@@ -18,13 +18,13 @@ const SCORE = `SCORE`
 const TOURNAMENT = `TOURNAMENT`
 
 const mapStateToProps = state => ({
-  modalOpen: modalOpenSelector(state.newMatch),
-  newMatch: newMatchSelector(state.newMatch)
+  modalOpen: modalOpenSelector(state),
+  newMatch: newMatchSelector(state)
 })
 
 const mapDispatchToProps = {
   closeModal,
-  setNewMatch,
+  setNewMatch, // TODO change this action creators into multiple action creators (?)
   addNewMatch
 }
 

@@ -15,9 +15,9 @@ import { getPlayerGFGA } from '../utils/commonHelpers'
 import './TournamentLeaderboard.css'
 
 const mapStateToProps = state => ({
-  currentTournament: currentTournamentSelector(state.display),
-  teams: teamsSelector(state.load),
-  players: playersSelector(state.load)
+  currentTournament: currentTournamentSelector(state),
+  teams: teamsSelector(state),
+  players: playersSelector(state)
 })
 
 class TournamentLeaderboard extends Component {

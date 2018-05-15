@@ -7,8 +7,8 @@ import { playersSelector, tournamentsSelector } from '../../selectors'
 import { getFormatedDate } from '../utils/commonHelpers'
 
 const mapStateToProps = state => ({
-  players: playersSelector(state.load),
-  tournaments: tournamentsSelector(state.load)
+  players: playersSelector(state),
+  tournaments: tournamentsSelector(state)
 })
 
 class SelectPlayer extends Component {
