@@ -5,21 +5,20 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faPlus from '@fortawesome/fontawesome-free-solid/faPlus'
 import PropTypes from 'prop-types'
 import {
-  matchesSelector,
-  playersSelector,
-  currentTournamentSelector
+  isLoadingSelector,
+  matchesToMapSelector,
+  playersSelector
 } from '../../selectors'
 import { openModal } from '../../actions/newMatch'
 import Loading from '../Loading/Loading'
 import Match from '../Match/Match'
 import NewMatch from '../NewMatch/NewMatch'
-import { getMatchesSortedByDate, getMatchesToMap } from './matchesHelpers'
 import './Matches.css'
 
 const mapStateToProps = state => ({
-  matches: matchesSelector(state.load),
-  players: playersSelector(state.load),
-  currentTournament: currentTournamentSelector(state.display)
+  isLoading: isLoadingSelector(state),
+  matchesToMap: matchesToMapSelector(state),
+  players: playersSelector(state)
 })
 
 const mapDispatchToProps = {
@@ -32,14 +31,10 @@ class Matches extends Component {
   }
 
   render() {
-    const { matches, players, currentTournament } = this.props
-    const matchesToMap = getMatchesToMap(
-      getMatchesSortedByDate(matches),
-      currentTournament
-    )
+    const { isLoading, matchesToMap, players } = this.props
 
-    return matchesToMap.size < 1 ? (
-      <div>
+    return isLoading ? (
+      <div className="Matches-loading">
         <Loading />
         <button className="Add-Match" onClick={() => this.handleClick()}>
           <FontAwesomeIcon icon={faPlus} />
@@ -48,42 +43,45 @@ class Matches extends Component {
       </div>
     ) : (
       <div className="Matches">
-        {matchesToMap.valueSeq().map((match, key) => {
-          const {
-            playedAt,
-            result,
-            teams: {
-              0: { 0: playerA0, 1: playerA1 },
-              1: { 0: playerB0, 1: playerB1 }
+        {matchesToMap.map(
+          (
+            {
+              playedAt,
+              result,
+              teams: {
+                0: { 0: playerA0, 1: playerA1 },
+                1: { 0: playerB0, 1: playerB1 }
+              },
+              tournamentId,
+              gains
             },
-            tournamentId,
-            gains
-          } = match
-
-          let playerData = player => ({
-            ...players.get(player)
-          })
-
-          if (gains) {
-            playerData = player => ({
-              ...players.get(player),
-              gain: gains[player]
+            key
+          ) => {
+            let playerData = player => ({
+              ...players.get(player)
             })
-          }
 
-          return (
-            <Match
-              key={key}
-              playedAt={playedAt}
-              result={result}
-              playerA0={playerData(playerA0)}
-              playerA1={playerData(playerA1)}
-              playerB0={playerData(playerB0)}
-              playerB1={playerData(playerB1)}
-              tournamentId={tournamentId}
-            />
-          )
-        })}
+            if (gains) {
+              playerData = player => ({
+                ...players.get(player),
+                gain: gains[player]
+              })
+            }
+
+            return (
+              <Match
+                key={key}
+                playedAt={playedAt}
+                result={result}
+                playerA0={playerData(playerA0)}
+                playerA1={playerData(playerA1)}
+                playerB0={playerData(playerB0)}
+                playerB1={playerData(playerB1)}
+                tournamentId={tournamentId}
+              />
+            )
+          }
+        )}
         <Button className="Add-Match" onClick={() => this.handleClick()}>
           <FontAwesomeIcon icon={faPlus} />
         </Button>
@@ -94,7 +92,8 @@ class Matches extends Component {
 }
 
 Matches.propTypes = {
-  matches: PropTypes.object,
+  isLoading: PropTypes.bool,
+  matchesToMap: PropTypes.object,
   players: PropTypes.object,
   openModal: PropTypes.func,
   currentTournament: PropTypes.string

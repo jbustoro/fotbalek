@@ -2,7 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Table } from 'react-bootstrap'
 import PropTypes from 'prop-types'
-import { playersSelector, snapshotsSelector } from '../../selectors'
+import {
+  isLoadingSelector,
+  playersSelector,
+  snapshotsSelector
+} from '../../selectors'
 import Loading from '../Loading/Loading'
 import Player from '../Player/Player'
 import {
@@ -13,17 +17,18 @@ import {
 import './Players.css'
 
 const mapStateToProps = state => ({
-  players: playersSelector(state.load),
-  snapshots: snapshotsSelector(state.load)
+  isLoading: isLoadingSelector(state),
+  players: playersSelector(state),
+  snapshots: snapshotsSelector(state)
 })
 
 class Players extends Component {
   render() {
-    const { players, snapshots } = this.props
+    const { isLoading, players, snapshots } = this.props
     const orderedPlayers = getPlayersSortedByOrder(players)
     const lastSnapshot = getLastSnapshot(snapshots)
 
-    return orderedPlayers.size < 1 ? (
+    return isLoading ? (
       <Loading />
     ) : (
       <div className="Players">
@@ -39,9 +44,7 @@ class Players extends Component {
             </tr>
           </thead>
           <tbody>
-            {orderedPlayers.entrySeq().map((playerData, key) => {
-              const [playerId, player] = playerData
-
+            {orderedPlayers.entrySeq().map(([playerId, player], key) => {
               return (
                 <Player
                   key={key}
@@ -58,6 +61,7 @@ class Players extends Component {
 }
 
 Players.propTypes = {
+  isLoading: PropTypes.bool,
   players: PropTypes.object,
   snapshots: PropTypes.object
 }

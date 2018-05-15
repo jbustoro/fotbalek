@@ -1,5 +1,7 @@
 import { Record, Map } from 'immutable'
 import {
+  LOADING_DATA,
+  LOADED_DATA,
   LOAD_MATCHES_DATA,
   LOAD_PLAYERS_DATA,
   LOAD_TOURNAMENTS_DATA,
@@ -8,6 +10,7 @@ import {
 } from '../constants'
 
 const initialState = Record({
+  isLoading: false,
   matches: Map({}),
   players: Map({}),
   tournaments: Map({}),
@@ -19,6 +22,10 @@ const defaultState = new initialState()
 
 export default function load(state = defaultState, action) {
   switch (action.type) {
+    case LOADING_DATA:
+      return state.set(`isLoading`, true)
+    case LOADED_DATA:
+      return state.set(`isLoading`, false)
     case LOAD_MATCHES_DATA:
       return state.set(`matches`, Map(action.payload))
     case LOAD_PLAYERS_DATA:

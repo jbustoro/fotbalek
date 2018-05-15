@@ -1,10 +1,24 @@
 import {
+  LOADING_DATA,
+  LOADED_DATA,
   LOAD_MATCHES_DATA,
   LOAD_PLAYERS_DATA,
   LOAD_TOURNAMENTS_DATA,
   LOAD_TEAMS_DATA,
   LOAD_SNAPSHOTS_DATA
 } from '../constants'
+
+export function loadingData() {
+  return {
+    type: LOADING_DATA
+  }
+}
+
+export function loadedData() {
+  return {
+    type: LOADED_DATA
+  }
+}
 
 export function loadMatchesData(payload) {
   return {

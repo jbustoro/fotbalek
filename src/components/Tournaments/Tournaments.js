@@ -1,22 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { tournamentsSelector } from '../../selectors'
+import { isLoadingSelector, tournamentsSelector } from '../../selectors'
 import Loading from '../Loading/Loading'
 import Tournament from '../Tournament/Tournament'
 import { getTournamentsSortedByDate } from './tournamentsHelpers'
 import './Tournaments.css'
 
 const mapStateToProps = state => ({
-  tournaments: tournamentsSelector(state.load)
+  isLoading: isLoadingSelector(state),
+  tournaments: tournamentsSelector(state)
 })
 
 class Tournaments extends Component {
   render() {
-    const { tournaments } = this.props
+    const { isLoading, tournaments } = this.props
     const orderedTournaments = getTournamentsSortedByDate(tournaments)
 
-    return orderedTournaments.size < 1 ? (
+    return isLoading ? (
       <Loading />
     ) : (
       <div className="Tournaments">
@@ -37,6 +38,7 @@ class Tournaments extends Component {
 }
 
 Tournaments.propTypes = {
+  isLoading: PropTypes.bool,
   tournaments: PropTypes.object
 }
 
