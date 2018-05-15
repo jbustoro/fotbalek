@@ -9,3 +9,15 @@ export function getPlayerGFGA(goalsFor, goalsAgainst) {
 export function getFormatedDate(date) {
   return moment(date).format(`MMMM Do YYYY, h:mm:ss a`)
 }
+
+export function getMatchesSortedByDate(matches) {
+  return matches.sortBy(match => match.playedAt).reverse()
+}
+
+export function getMatchesToMap(orderedMatches, currentTournament) {
+  return !currentTournament
+    ? orderedMatches.valueSeq()
+    : orderedMatches /*eslint-disable indent*/
+        .filter(match => match.tournamentId === currentTournament)
+        .valueSeq() /*eslint-enable indent*/
+}
