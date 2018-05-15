@@ -1,11 +1,7 @@
 import {
   SET_NAV_ACTIVE_KEY,
-  DISPLAY_MATCHES,
-  DISPLAY_PLAYERS,
-  DISPLAY_TOURNAMENTS,
   SET_CURRENT_TOURNAMENT,
-  DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD,
-  DISPLAY_CURRENT_TOURNAMENT_MATCHES
+  DISPLAY_DATA
 } from '../constants'
 
 export function setNavActiveKey(payload) {
@@ -15,18 +11,6 @@ export function setNavActiveKey(payload) {
   }
 }
 
-export function displayMatches() {
-  return { type: DISPLAY_MATCHES }
-}
-
-export function displayPlayers() {
-  return { type: DISPLAY_PLAYERS }
-}
-
-export function displayTournaments() {
-  return { type: DISPLAY_TOURNAMENTS }
-}
-
 export function setCurrentTournament(payload) {
   return {
     type: SET_CURRENT_TOURNAMENT,
@@ -34,14 +18,9 @@ export function setCurrentTournament(payload) {
   }
 }
 
-export function displayCurrentTournamentLeaderboard() {
+export function displayData(payload) {
   return {
-    type: DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD
-  }
-}
-
-export function displayCurrentTournamentMatches() {
-  return {
-    type: DISPLAY_CURRENT_TOURNAMENT_MATCHES
+    type: DISPLAY_DATA,
+    payload
   }
 }

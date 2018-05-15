@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 import {
   ANONYMOUS,
   SIGNED_IN,
-  DISPLAY_MATCHES,
-  DISPLAY_PLAYERS,
-  DISPLAY_TOURNAMENTS,
-  DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD,
-  DISPLAY_CURRENT_TOURNAMENT_MATCHES
+  MATCHES,
+  PLAYERS,
+  TOURNAMENTS,
+  CURRENT_TOURNAMENT_LEADERBOARD,
+  CURRENT_TOURNAMENT_MATCHES
 } from '../../constants'
 import { authStatusSelector, currentItemSelector } from '../../selectors'
 import FirebaseAuth from '../FirebaseAuth/FirebaseAuth'
@@ -24,8 +24,8 @@ import logo from '../../assets/fotbalek.png'
 import './App.css'
 
 const mapStateToProps = state => ({
-  authStatus: authStatusSelector(state.auth),
-  currentItem: currentItemSelector(state.display)
+  authStatus: authStatusSelector(state),
+  currentItem: currentItemSelector(state)
 })
 
 class App extends Component {
@@ -49,13 +49,11 @@ class App extends Component {
               <FirebaseData />
               <NavigationBar />
               <div className="Data-container">
-                {(currentItem === DISPLAY_MATCHES ||
-                  currentItem === DISPLAY_CURRENT_TOURNAMENT_MATCHES) && (
-                  <Matches />
-                )}
-                {currentItem === DISPLAY_PLAYERS && <Players />}
-                {currentItem === DISPLAY_TOURNAMENTS && <Tournaments />}
-                {currentItem === DISPLAY_CURRENT_TOURNAMENT_LEADERBOARD && (
+                {(currentItem === MATCHES ||
+                  currentItem === CURRENT_TOURNAMENT_MATCHES) && <Matches />}
+                {currentItem === PLAYERS && <Players />}
+                {currentItem === TOURNAMENTS && <Tournaments />}
+                {currentItem === CURRENT_TOURNAMENT_LEADERBOARD && (
                   <TournamentLeaderboard />
                 )}
               </div>
