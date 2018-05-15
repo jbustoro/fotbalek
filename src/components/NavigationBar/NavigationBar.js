@@ -5,33 +5,43 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faArrowLeft from '@fortawesome/fontawesome-free-solid/faArrowLeft'
 import PropTypes from 'prop-types'
 import {
+  MATCHES,
+  PLAYERS,
+  TOURNAMENTS,
+  CURRENT_TOURNAMENT_LEADERBOARD,
+  CURRENT_TOURNAMENT_MATCHES
+} from '../../constants'
+import {
   currentTournamentSelector,
   navActiveKeySelector
 } from '../../selectors'
 import {
   setNavActiveKey,
-  displayMatches,
-  displayPlayers,
-  displayTournaments,
-  setCurrentTournament,
-  displayCurrentTournamentLeaderboard,
-  displayCurrentTournamentMatches
+  displayData,
+  setCurrentTournament
 } from '../../actions/display'
 import './NavigationBar.css'
 
+const INITIAL_NAV_ITEMS = [
+  { name: `Matches`, dataType: MATCHES },
+  { name: `Players`, dataType: PLAYERS },
+  { name: `Tournaments`, dataType: TOURNAMENTS }
+]
+
+const CURRENT_TOURNAMENT_NAV_ITEMS = [
+  { name: `Leaderboard`, dataType: CURRENT_TOURNAMENT_LEADERBOARD },
+  { name: `Matches`, dataType: CURRENT_TOURNAMENT_MATCHES }
+]
+
 const mapStateToProps = state => ({
-  currentTournament: currentTournamentSelector(state.display),
-  navActiveKey: navActiveKeySelector(state.display)
+  currentTournament: currentTournamentSelector(state),
+  navActiveKey: navActiveKeySelector(state)
 })
 
 const mapDispatchToProps = {
   setNavActiveKey,
-  displayMatches,
-  displayPlayers,
-  displayTournaments,
-  setCurrentTournament,
-  displayCurrentTournamentLeaderboard,
-  displayCurrentTournamentMatches
+  displayData,
+  setCurrentTournament
 }
 
 class NavigationBar extends Component {
@@ -41,51 +51,35 @@ class NavigationBar extends Component {
   }
 
   render() {
-    const { currentTournament } = this.props
+    const { currentTournament, navActiveKey } = this.props
+    const itemsToMap = !currentTournament
+      ? INITIAL_NAV_ITEMS
+      : CURRENT_TOURNAMENT_NAV_ITEMS
 
     return (
       <Navbar staticTop fluid>
         <Navbar.Collapse>
-          {currentTournament === null ? (
-            <Nav
-              activeKey={this.props.navActiveKey}
-              onSelect={event => this.handleSelect(event)}
-            >
-              <NavItem eventKey={1} onClick={() => this.props.displayMatches()}>
-                Matches
-              </NavItem>
-              <NavItem eventKey={2} onClick={() => this.props.displayPlayers()}>
-                Players
-              </NavItem>
-              <NavItem
-                eventKey={3}
-                onClick={() => this.props.displayTournaments()}
-              >
-                Tournaments
-              </NavItem>
-            </Nav>
-          ) : (
-            <Nav
-              activeKey={this.props.navActiveKey}
-              onSelect={event => this.handleSelect(event)}
-            >
+          <Nav
+            activeKey={navActiveKey}
+            onSelect={event => this.handleSelect(event)}
+          >
+            {currentTournament && (
               <NavItem onClick={() => this.props.setCurrentTournament(null)}>
                 <FontAwesomeIcon className="ArrowLeft" icon={faArrowLeft} />
               </NavItem>
-              <NavItem
-                eventKey={1}
-                onClick={() => this.props.displayCurrentTournamentLeaderboard()}
-              >
-                LeaderBoard
-              </NavItem>
-              <NavItem
-                eventKey={2}
-                onClick={() => this.props.displayCurrentTournamentMatches()}
-              >
-                Matches
-              </NavItem>
-            </Nav>
-          )}
+            )}
+            {itemsToMap.map(({ name, dataType }, key) => {
+              return (
+                <NavItem
+                  key={key}
+                  eventKey={key + 1}
+                  onClick={() => this.props.displayData(dataType)}
+                >
+                  {name}
+                </NavItem>
+              )
+            })}
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
     )
@@ -95,14 +89,9 @@ class NavigationBar extends Component {
 
 Navbar.propTypes = {
   navActiveKey: PropTypes.number,
+  displayData: PropTypes.func,
   setNavActiveKey: PropTypes.func,
-  displayMatches: PropTypes.func,
-  displayPlayers: PropTypes.func,
-  displayTournaments: PropTypes.func,
-  currentTournament: PropTypes.string,
-  setCurrentTournament: PropTypes.func,
-  displayCurrentTournamentLeaderboard: PropTypes.func,
-  displayCurrentTournamentMatches: PropTypes.func
+  setCurrentTournament: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar)
