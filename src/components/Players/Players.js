@@ -10,7 +10,7 @@ import {
 import Loading from '../Loading/Loading'
 import Player from '../Player/Player'
 import {
-  getPlayersSortedByOrder,
+  getPlayersSortedByRating,
   getLastSnapshot,
   getSnapshotRating
 } from './playersHelpers'
@@ -25,7 +25,7 @@ const mapStateToProps = state => ({
 class Players extends Component {
   render() {
     const { isLoading, players, snapshots } = this.props
-    const orderedPlayers = getPlayersSortedByOrder(players)
+    const orderedPlayers = getPlayersSortedByRating(players)
     const lastSnapshot = getLastSnapshot(snapshots)
 
     return isLoading ? (
@@ -48,6 +48,7 @@ class Players extends Component {
               return (
                 <Player
                   key={key}
+                  order={key}
                   player={player}
                   snapshotRating={getSnapshotRating(lastSnapshot, playerId)}
                 />

@@ -10,8 +10,8 @@ export function getLastSnapshot(snapshots) {
   return snapshots[getYesterdaysDate()]
 }
 
-export function getPlayersSortedByOrder(players) {
-  return players.sortBy(player => player.order)
+export function getPlayersSortedByRating(players) {
+  return players.sortBy(player => player.rating).reverse()
 }
 
 export function getSnapshotRating(lastSnapshot, playerId) {

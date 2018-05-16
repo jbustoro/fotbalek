@@ -10,11 +10,11 @@ import './Player.css'
 
 class Player extends Component {
   render() {
-    const { player, snapshotRating } = this.props
+    const { order, player, snapshotRating } = this.props
 
     return (
       <tr>
-        <td>{getPlayerOrder(player.order)}</td>
+        <td>{getPlayerOrder(order)}</td>
         <td>{player.name}</td>
         <td>{getPlayerRatingDom(snapshotRating, player.rating)}</td>
         <td>{`${player.wins}:${player.loses}`}</td>
@@ -26,6 +26,7 @@ class Player extends Component {
 }
 
 Player.propTypes = {
+  order: PropTypes.number,
   player: PropTypes.object,
   snapshotRating: PropTypes.number
 }
