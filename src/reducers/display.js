@@ -1,6 +1,7 @@
 import { Record } from 'immutable'
 import {
   SET_NAV_ACTIVE_KEY,
+  DEFAULT_NAV_ACTIVE_KEY,
   SET_CURRENT_TOURNAMENT,
   DISPLAY_DATA,
   MATCHES,
@@ -8,7 +9,7 @@ import {
 } from '../constants'
 
 const initialState = Record({
-  navActiveKey: 1,
+  navActiveKey: DEFAULT_NAV_ACTIVE_KEY,
   currentItem: MATCHES,
   currentTournament: null
 })

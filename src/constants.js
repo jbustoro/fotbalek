@@ -23,6 +23,7 @@ export const SET_NEW_MATCH = `SET_NEW_MATCH`
 export const ADD_NEW_MATCH = `ADD_NEW_MATCH`
 export const MATCH_SAVED = `MATCH_SAVED`
 export const SET_NAV_ACTIVE_KEY = `SET_NAV_ACTIVE_KEY`
+export const DEFAULT_NAV_ACTIVE_KEY = 1
 export const ARROW_UP = `↑`
 export const ARROW_DOWN = `↓`
 export const BLACK_CIRCLE = `●`

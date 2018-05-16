@@ -22,12 +22,13 @@ import {
 } from '../../actions/display'
 import './NavigationBar.css'
 
+const BACK = -1
+const BACK_TO_TOURNAMENTS_NAV_ACTIVE_KEY = 3
 const INITIAL_NAV_ITEMS = [
   { name: `Matches`, dataType: MATCHES },
   { name: `Players`, dataType: PLAYERS },
   { name: `Tournaments`, dataType: TOURNAMENTS }
 ]
-
 const CURRENT_TOURNAMENT_NAV_ITEMS = [
   { name: `Leaderboard`, dataType: CURRENT_TOURNAMENT_LEADERBOARD },
   { name: `Matches`, dataType: CURRENT_TOURNAMENT_MATCHES }
@@ -47,7 +48,9 @@ const mapDispatchToProps = {
 class NavigationBar extends Component {
   /*eslint-disable react/prop-types*/
   handleSelect(selectedKey) {
-    this.props.setNavActiveKey(selectedKey)
+    this.props.setNavActiveKey(
+      selectedKey === BACK ? BACK_TO_TOURNAMENTS_NAV_ACTIVE_KEY : selectedKey
+    )
   }
 
   render() {
@@ -64,7 +67,10 @@ class NavigationBar extends Component {
             onSelect={event => this.handleSelect(event)}
           >
             {currentTournament && (
-              <NavItem onClick={() => this.props.setCurrentTournament(null)}>
+              <NavItem
+                eventKey={BACK}
+                onClick={() => this.props.setCurrentTournament(null)}
+              >
                 <FontAwesomeIcon className="ArrowLeft" icon={faArrowLeft} />
               </NavItem>
             )}
