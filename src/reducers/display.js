@@ -5,6 +5,7 @@ import {
   SET_CURRENT_TOURNAMENT,
   DISPLAY_DATA,
   MATCHES,
+  TOURNAMENTS,
   CURRENT_TOURNAMENT_LEADERBOARD
 } from '../constants'
 
@@ -21,14 +22,15 @@ export default function display(state = defaultState, action) {
   switch (action.type) {
     case SET_NAV_ACTIVE_KEY:
       return state.set(`navActiveKey`, action.payload)
-    case SET_CURRENT_TOURNAMENT:
-      return action.payload
-        ? state
-            .set(`currentTournament`, action.payload)
-            .set(`currentItem`, CURRENT_TOURNAMENT_LEADERBOARD)
-        : state
-            .set(`currentTournament`, action.payload)
-            .set(`currentItem`, MATCHES)
+    case SET_CURRENT_TOURNAMENT: {
+      const currentItem = action.payload
+        ? CURRENT_TOURNAMENT_LEADERBOARD
+        : TOURNAMENTS
+
+      return state
+        .set(`currentTournament`, action.payload)
+        .set(`currentItem`, currentItem)
+    }
     case DISPLAY_DATA:
       return state.set(`currentItem`, action.payload)
     default:
