@@ -27,4 +27,4 @@ export const DEFAULT_NAV_ACTIVE_KEY = 1
 export const ARROW_UP = `↑`
 export const ARROW_DOWN = `↓`
 export const BLACK_CIRCLE = `●`
-export const PLUS = `+`
+export const PLUS_SIGN = `+`

@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import swal from 'sweetalert'
 
-const ERROR_TITLE = `Oops!`
+const WARNING_TITLE = `Oops!`
 const SUCCESS_TITLE = `Success`
 const WARNING_ICON = `warning`
 const SUCCESS_ICON = `success`
@@ -27,11 +27,11 @@ export function validateNewMatch(newMatch, addNewMatch, closeModal) {
   const players = [playerA0, playerA1, playerB0, playerB1]
 
   if (isEmpty([...players, scoreA, scoreB])) {
-    return swal(ERROR_TITLE, EMPTY_DATA, WARNING_ICON)
+    return swal(WARNING_TITLE, EMPTY_DATA, WARNING_ICON)
   } else if (isWrongScore(scoreA, scoreB)) {
-    return swal(ERROR_TITLE, WRONG_SCORE, WARNING_ICON)
+    return swal(WARNING_TITLE, WRONG_SCORE, WARNING_ICON)
   } else if (isDuplicatePlayer(players)) {
-    return swal(ERROR_TITLE, DUPLICATE_PLAYER, WARNING_ICON)
+    return swal(WARNING_TITLE, DUPLICATE_PLAYER, WARNING_ICON)
   }
 
   addNewMatch(newMatch)
